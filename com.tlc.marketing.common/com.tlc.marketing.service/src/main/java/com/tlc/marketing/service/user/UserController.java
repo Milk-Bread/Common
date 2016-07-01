@@ -1,7 +1,6 @@
 package com.tlc.marketing.service.user;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,8 +34,8 @@ public class UserController {
 
   @RequestMapping(value = "Login.do", method = RequestMethod.POST)
   @ResponseBody
-  public Object login(HttpServletRequest request, String userName, String password) {
-    User user = userService.loginCheck(userName, password);
+  public Object login(String UserName, String Password) {
+    User user = userService.loginCheck(UserName, Password);
     if (user == null) {
       throw new RuntimeException(CHECKMSG.USER_DOES_NOT_EXIST);
     }

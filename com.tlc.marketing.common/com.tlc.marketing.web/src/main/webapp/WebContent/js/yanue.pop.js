@@ -1,4 +1,4 @@
-﻿(function($j) {
+(function($j) {
 	$j.positionFixed = function(el) {
 		$j(el).each(function() {
 			new fixed(this);
