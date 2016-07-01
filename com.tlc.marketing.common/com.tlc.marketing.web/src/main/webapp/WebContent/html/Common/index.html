@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/yanue.pop.js"></script>
+<script type="text/javascript">
+//记得加载jquery
+//使用参数：1.标题，2.链接地址，3.内容简介
+window.onload=function(){
+	var pop=new Pop("这里是标题，哈哈","http://www.17sucai.com/","请输入你的内容简介，这里是内容简介.请输入你的内容简介，这里是内容简介.请输入你的内容简介，这里是内容简介");
+}
+</script>
+</head>
+<div id="pop" style="display:none;">
+	<div id="popHead"> <a id="popClose" title="关闭">关闭</a>
+		<h2>温馨提示</h2>
+	</div>
+	<div id="popContent">
+		<dl>
+			<dt id="popTitle"><a href="http://www.17sucai.com/" target="_blank">这里是标题</a></dt>
+			<dd id="popIntro">这里是内容简介</dd>
+		</dl>
+		<p id="popMore"><a href="http://www.17sucai.com/" target="_blank">查看 »</a></p>
+	</div>
+</div>
+</body>
+</html>
