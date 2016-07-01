@@ -82,9 +82,9 @@
 	});
 })(jQuery);
 
-function Pop(title, url, intro) {
+function Pop(title, intro) {
 	this.title = title;
-	this.url = url;
+	this.url = 'javascript:void(0);';
 	this.intro = intro;
 	this.apearTime = 1000;
 	this.hideTime = 500;
@@ -105,8 +105,10 @@ Pop.prototype = {
 	},
 	showDiv : function(time) {
 		if (!($.browser.msie && ($.browser.version == "6.0") && !$.support.style)) {
-			$('#pop').slideDown(this.apearTime).delay(this.delay).fadeOut(400);
-			;
+			$('#pop').slideDown(this.apearTime);
+			setTimeout(function(){
+				$('#pop').fadeOut(400);
+			},this.delay);
 		} else {// 调用jquery.fixed.js,解决ie6不能用fixed
 			$('#pop').show();
 			jQuery(function($j) {

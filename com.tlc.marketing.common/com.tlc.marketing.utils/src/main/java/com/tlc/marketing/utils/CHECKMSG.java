@@ -11,4 +11,6 @@ public class CHECKMSG {
   public static final String PARAMETER_ERROR_PLEASE_CHECK = "parameter.error.please.check";
   /** 微信开发者验证失败 **/
   public static final String WECHAT_DEVELOPER_VALIDATION_FAILED = "wechat.developer.validation.failed";
+  /** 用户不存在 **/
+  public static final String USER_DOES_NOT_EXIST = "user.does.not.exist";
 }

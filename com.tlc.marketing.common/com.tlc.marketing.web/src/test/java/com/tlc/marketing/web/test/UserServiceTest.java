@@ -8,13 +8,13 @@ import com.tlc.marketing.domain.user.User;
 import com.tlc.marketing.web.basetest.SpringTestCase;
 
 public class UserServiceTest extends SpringTestCase {
-	 
-    @Autowired 
-    private UserService userService; 
- 
-    @Test 
-    public void selectUserByIdTest(){  
-        User user = userService.selectUserById(1);  
-        System.out.println(user.getUserName() + ":" + user.getUserPassword());
-    }  
+
+  @Autowired
+  private UserService userService;
+
+  @Test
+  public void selectUserByIdTest() {
+    User user = userService.selectUserById(1);
+    System.out.println(user.getUserName() + ":" + user.getPassword());
+  }
 }

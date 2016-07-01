@@ -1,20 +1,17 @@
 package com.tlc.marketing.service.user;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tlc.marketing.business.user.UserService;
 import com.tlc.marketing.domain.user.User;
+import com.tlc.marketing.utils.CHECKMSG;
 
 /**
  * Description: 核心控制器
@@ -36,14 +33,13 @@ public class UserController {
     return mav;
   }
 
-  @RequestMapping(value = "Login.do")
+  @RequestMapping(value = "Login.do", method = RequestMethod.POST)
   @ResponseBody
-  public Object jsontest(HttpServletRequest request, String test) {
-    Map<String, Object> response = new HashMap<String, Object>();
-    response.put("aaa", "adsf");
-    response.put("bbb", "来个中文试试");
-    List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-    list.add(response);
-    return list;
+  public Object login(HttpServletRequest request, String userName, String password) {
+    User user = userService.loginCheck(userName, password);
+    if (user == null) {
+      throw new RuntimeException(CHECKMSG.USER_DOES_NOT_EXIST);
+    }
+    return user;
   }
 }
