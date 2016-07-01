@@ -14,11 +14,14 @@ function LoginCtrl($rootScope,$scope,$service) {
 		angular.element('.form').fadeOut(500);
 		angular.element('.wrapper').addClass('form-success');
 		var formData = {
-			"UserName" : username,
-			"Password" : password
+			"userName" : username,
+			"password" : password
 		};
-		$service.post2SRV("Login.do", formData,function(data) {
-			new Pop("返回数据",data. _exceptionMsg);
+
+		$service.post2SRV("Login.do", formData,function(data,status) {
+			new Pop("返回数据","用户名："+data.userName+"密码："+data.password);
+			angular.element('.form').slideToggle(500);
+			angular.element('.wrapper').removeClass('form-success');
     	});
 	};
 }

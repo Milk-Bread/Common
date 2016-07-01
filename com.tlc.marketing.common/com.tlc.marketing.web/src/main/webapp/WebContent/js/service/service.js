@@ -5,21 +5,33 @@ manage.service('$service',function(){
 	    $.ajax({
 	        async : false,
 	        type : "POST",
-	        data : JSON.stringify(formData),
+	        data : formData,
 	        url : url,
 	        dataType : "json",
-	        success : function(data, status, headers, config) {
+	        success : function(data, status, headers) {
 	        	if(data == "failure"){
 	        		new Pop("错误提示","系统繁忙，稍后再试");
-	        		return;
+	        		return false;
 	        	} else if (data == "error") {
 	        		new Pop("错误提示","系统内部错误！");
-	        		return;
+	        		return false;
+	        	} else if(data._exceptionMsg != null && data._exceptionMsg != undefined && data._exceptionMsg != null){
+	        		new Pop("错误提示",data._exceptionMsg);
+	        		return false;
 	        	}
-	        	callBack(data, status, headers, config);
+	        	if(JSON.parse(headers.response)._exceptionCode == undefined){
+	        		status = true;
+	        	}else{
+	        		status = false;
+	        	}
+	        	callBack(data, status, headers);
 	        },
 	        error : function(data, status, headers, config) {
-	        	new Pop("错误提示",data._exceptionMsg)
+	        	var errorStr = "网络错误";
+	        	if(data._exceptionMsg != null && data._exceptionMsg != undefined && data._exceptionMsg != null){
+	        		errorStr = data._exceptionMsg;
+	        	}
+	        	new Pop("错误提示",data._exceptionMsg);
 	        }
 	    });
 	};

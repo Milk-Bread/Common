@@ -114,7 +114,7 @@ Pop.prototype = {
 			jQuery(function($j) {
 				$j('#pop').positionFixed();
 			});
-		}
+		};
 	},
 	closeDiv : function() {
 		$("#popClose").click(function() {
