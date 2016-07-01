@@ -16,16 +16,4 @@
     <select id="loginCheck" parameterType="com.tlc.marketing.domain.user.User" resultMap="BaseResultMap">
         SELECT USER_ID,USER_NAME,USER_PASSWORD FROM T_USER WHERE USER_NAME = #{userName} and USER_PASSWORD = #{password}
     </select>
-    <!-- 查询单条记录 -->
-    <select id="loginCheck" parameterType="com.tlc.marketing.domain.user.User" resultMap="BaseResultMap">
-        SELECT * FROM T_USER WHERE USER_ID = #{userName} and USER_PASSWORD = #{password}
-    </select>
-    <!-- 查询单条记录 -->
-    <select id="loginCheck" parameterType="com.tlc.marketing.domain.user.User" resultMap="BaseResultMap">
-        SELECT * FROM T_USER WHERE USER_ID = #{userName} and USER_PASSWORD = #{password}
-    </select>
-    <!-- 查询单条记录 -->
-    <select id="loginCheck" parameterType="com.tlc.marketing.domain.user.User" resultMap="BaseResultMap">
-        SELECT * FROM T_USER WHERE USER_ID = #{userName} and USER_PASSWORD = #{password}
-    </select>
 </mapper>

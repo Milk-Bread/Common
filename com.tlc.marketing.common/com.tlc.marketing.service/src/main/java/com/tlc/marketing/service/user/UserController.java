@@ -34,8 +34,8 @@ public class UserController {
 
   @RequestMapping(value = "Login.do", method = RequestMethod.POST)
   @ResponseBody
-  public Object login(String UserName, String Password) {
-    User user = userService.loginCheck(UserName, Password);
+  public Object login(String userName, String password) {
+    User user = userService.loginCheck(userName, password);
     if (user == null) {
       throw new RuntimeException(CHECKMSG.USER_DOES_NOT_EXIST);
     }
