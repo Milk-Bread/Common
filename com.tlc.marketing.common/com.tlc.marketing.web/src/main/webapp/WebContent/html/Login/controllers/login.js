@@ -1,5 +1,5 @@
-LoginCtrl.$inject = [ "$rootScope", "$scope","$service" ];
-function LoginCtrl($rootScope,$scope,$service) {
+LoginCtrl.$inject = [ "$rootScope", "$scope","$service","$location"];
+function LoginCtrl($rootScope,$scope,$service,$location) {
 	$scope.doIt = function(){
 		var username = $scope.UserName;
 		if(username == undefined || username == ''){
@@ -18,9 +18,10 @@ function LoginCtrl($rootScope,$scope,$service) {
 			"password" : password
 		};
 		$service.post2SRV("Login.do", formData,function(data,status) {
-			new Pop("返回数据","用户名："+data.userName+"密码："+data.password);
-			angular.element('.form').slideToggle(500);
-			angular.element('.wrapper').removeClass('form-success');
+			$location.path('/Main/'+data.userName+"/"+data.password);
+			//new Pop("返回数据","用户名："+data.userName+"密码："+data.password);
+			//angular.element('.form').slideToggle(500);
+			//angular.element('.wrapper').removeClass('form-success');
     	});
 	};
 }

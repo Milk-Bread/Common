@@ -11,7 +11,6 @@
   	<module>com.tlc.marketing.utils</module>
   	<module>com.tlc.marketing.dao</module>
   	<module>com.tlc.marketing.business</module>
-  	<module>com.tlc.marketing.mweb</module>
   </modules>
   
   <properties>
@@ -169,18 +168,18 @@
 		      <version>1.2.1</version>
 	    </dependency>
 	</dependencies>
-	<build>  
-	    <plugins>  
-	        <plugin>  
-	            <groupId>org.apache.maven.plugins</groupId>  
-	            <artifactId>maven-compiler-plugin</artifactId>  
-	            <version>2.3.2</version>  
-	            <configuration>  
-	                <!-- 指定source和target的版本 -->                 
-	                <source>1.7</source>  
-	                <target>1.7</target>  
-	            </configuration>  
-	        </plugin>  
-	    </plugins>  
-	</build>  
+	<build>
+	    <plugins>
+	        <plugin>
+	            <groupId>org.apache.maven.plugins</groupId>
+	            <artifactId>maven-compiler-plugin</artifactId>
+	            <version>2.3.2</version>
+	            <configuration>
+	                <!-- 指定source和target的版本 -->
+	                <source>1.7</source>
+	                <target>1.7</target>
+	            </configuration>
+	        </plugin>
+	    </plugins>
+	</build>
 </project>

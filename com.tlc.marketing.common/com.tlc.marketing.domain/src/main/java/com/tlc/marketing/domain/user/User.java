@@ -1,6 +1,8 @@
 package com.tlc.marketing.domain.user;
 
-public class User {
+import com.tlc.marketing.domain.core.BaseCodeModel;
+
+public class User extends BaseCodeModel {
   private Integer userId;
   private String userName;
   private String password;

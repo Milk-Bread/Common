@@ -1,22 +1,5 @@
-<div class="wrapper" ng-app="Login">
-	<div class="container">
-		<h1>Welcome</h1>
-		<form class="form">
-			<input type="text" placeholder="Username">
-			<input type="password" placeholder="Password">
-			<button type="button" id="login-button">Login</button>
-		</form>
-	</div>
-	<ul class="bg-bubbles">
-		<li style="background-color: green;"></li>
-		<li style="background-color: lime;"></li>
-		<li style="background-color: orange;"></li>
-		<li style="background-color: yellow;"></li>
-		<li style="background-color: navy;"></li>
-		<li style="background-color: olive;"></li>
-		<li></li>
-		<li style="background-color: maroon;"></li>
-		<li style="background-color: fuchsia;"></li>
-		<li style="background-color: aqua;"></li>
-	</ul>
+<div ng-controller="mainCtrl">
+	用户名：{{userName}}
+	密码：{{password}}
 </div>
+<script type="text/javascript" src="html/Main/controllers/main.js"></script>

@@ -1,10 +1,10 @@
 var manage = angular.module("Menege", ['ngRoute']);
-manage.config(['$routeProvider','$locationProvider','$httpProvider', function($routeProvider,$locationProvider,$httpProvider){
+manage.config(['$routeProvider', function($routeProvider){
     $routeProvider.when('/',{
     	templateUrl: 'html/Login/views/login.html'
-    }).when('/Main',{
-    	templateUrl: 'html/Main/views/main.html'
-    })
-    .otherwise({redirectTo:'html/Login/views/login.html'});
+    }).when('/Main/:userName/:password',{
+        templateUrl: 'html/Main/views/main.html',
+        controller:'mainCtrl'
+    }).otherwise({redirectTo:'html/Login/views/login.html'});
 }]);
 
