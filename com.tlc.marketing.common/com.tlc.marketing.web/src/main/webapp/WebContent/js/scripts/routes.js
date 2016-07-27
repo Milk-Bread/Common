@@ -11,7 +11,7 @@
             'Main': {
             	url: '/Main/:userName/:password',
                 templateUrl: 'views/Main/main.html',
-                dependencies: ['controllers/main/main'],
+                dependencies: ['controllers/Main/main'],
                 allowAnonymous: true
             },'Main.UserMng': {
             	url: '/UserMng',
