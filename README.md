@@ -1,8 +1,5 @@
-<<<<<<< HEAD
+
 # Common
-AngularJs html5 spring mvc
-=======
-# common
 技术：springMvc Maven</br>
 数据库：mysql</br>
 前端：angularJs Html5</br>
@@ -22,4 +19,4 @@ AngularJs html5 spring mvc
 
 
 
->>>>>>> master
+
