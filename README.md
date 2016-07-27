@@ -1,5 +1,4 @@
 # common
-##后台
 技术：springMvc Maven</br>
 数据库：mysql</br>
 前端：angularJs Html5</br>
