@@ -15,3 +15,5 @@
 *.war
 *.ear
 hs_err_pid*
+/Servers
+/RemoteSystemsTempFiles
