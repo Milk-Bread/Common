@@ -32,4 +32,4 @@ define(['app', 'service'], function (app) {
         	});
     	};
     });
-}); 
+});
