@@ -8,10 +8,14 @@
 .DS_Store # only needed under mac os
 /build
 /captures
-
-
+.metadata
+/Latte
+com.tlc.marketing.common------
+logs
 # Package Files #
 *.jar
 *.war
 *.ear
 hs_err_pid*
+Servers
+RemoteSystemsTempFiles
