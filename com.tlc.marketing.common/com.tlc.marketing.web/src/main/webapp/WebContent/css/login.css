@@ -1,4 +1,3 @@
-
 * {
   box-sizing: border-box;
   margin: 0;
@@ -9,8 +8,16 @@ body {
   font-family: 'Source Sans Pro', sans-serif;
   color: white;
   font-weight: 300;
-  background-color: beige;
 }
+
+input::-webkit-input-placeholder { 
+	color: #999; 
+	-webkit-transition: color.5s; 
+} 
+input:focus::-webkit-input-placeholder, input:hover::-webkit-input-placeholder { 
+	color: #c2c2c2; 
+	-webkit-transition: color.5s; 
+} 
 body ::-webkit-input-placeholder {
   /* WebKit browsers */
   font-family: 'Source Sans Pro', sans-serif;

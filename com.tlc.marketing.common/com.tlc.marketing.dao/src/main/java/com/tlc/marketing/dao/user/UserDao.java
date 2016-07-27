@@ -13,7 +13,7 @@ public interface UserDao {
 
   /**
    * Description:登陆校验
-   * @Version1.0 2016年7月1日 上午11:33:25 by chepeiqing (chepeiqing@icloud.com)
+   * @Version1.0 2016-07-25 10:39:42 by chepeiqing (chepeiqing@icloud.com)
    * @param user
    * @return
    */

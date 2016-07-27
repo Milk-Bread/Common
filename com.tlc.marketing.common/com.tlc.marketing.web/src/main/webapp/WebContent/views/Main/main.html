@@ -1,0 +1,28 @@
+<div ng-controller="mainCtrl" class="mainCtrl">
+	<header class="main-top">
+		<div class="main-header-div-left FL">后台管理系统</div>
+		<div class="main-header-div-center FL">中间的服务</div>
+		<div class="main-header-div-right FL">
+			<ul class="main-userbar">
+				<li>超级管理员</li>
+				<li>admin</li>
+				<li>换肤</li>
+			</ul>
+		</div>
+	</header>
+	<section class="menu">
+		<article class="accordion">
+			<details class="link"  ng-repeat="menu in menuList">
+			   <summary>{{menu.menuOne}}</summary> 
+			   <ul class="submenu" ng-repeat="var in menu.menuTwo">
+					<li><a ui-sref=".{{var.url}}">{{var.name}}</a></li>
+				</ul>
+			</details>
+		</article>
+	</section>
+	<aside class="aside">
+		<nav>您当前位置： 系统管理=>用户管理</nav>
+		<!-- 主要内容 -->
+		<div ui-view></div>
+	</aside>
+</div>
