@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="Menege" lang="zh-CN">
+<html lang="zh-CN">
 <head>
 <meta charset="utf-8" />
 <meta content="fullscreen=yes,preventMove=no" name="ML-Config" />
@@ -9,24 +9,17 @@
 <meta name="keywords" id="keywords" content="后台管理系统" />
 <meta name="author" content="后台管理系统" />
 <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1,user-scalable=no" />
+<!-- <link href="./js/lib/bootstrap.min.css" rel="stylesheet"> -->
+<!-- <link href="./js/lib/ueditor/themes/default/css/ueditor.min.css"> -->
 <link rel="stylesheet" href="css/login.css">
+<link rel="stylesheet" href="css/common.css">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-	<!--主要内容  -->
-	<div id="content" ng-view=""></div>
-	<!--公共方法  -->
-	<script type="text/javascript" src="js/jquery/jquery-2.1.4.min.js"></script>
-	<script type="text/javascript" src="js/angular/angular.min.js"></script>
-	<script type="text/javascript" src="js/angular/angular-route.min.js"></script>
-	<script type="text/javascript" src="js/angular/angular-touch.min.js"></script>
-	<script type="text/javascript" src="index.js"></script>
-	<script type="text/javascript" src="js/service/service.js"></script>
-	<script type="text/javascript" src="js/jquery/jquery.min.js"></script>
-	<script type="text/javascript" src="js/yanue.pop.js"></script>
-	<div id="pop" style="display:none;">
-		<div id="popHead"> <a id="popClose" title="关闭">关闭</a>
-			<h2>温馨提示</h2>
+	<div ui-view></div>
+	<div id="pop">
+		<div id="popHead"> <a id="popClose" title="关闭" onclick="closePop();">关闭</a>
+			<span>温馨提示</span>
 		</div>
 		<div id="popContent">
 			<dl>
@@ -36,5 +29,7 @@
 			<p id="popMore"><a href="javascript:void(0);" target="_blank">&nbsp;</a></p>
 		</div>
 	</div>
+	<!-- 使用require加载js -->
+	<script data-main="js/main.js" src="js/lib/requirejs/require.js"></script>
 </body>
 </html>
