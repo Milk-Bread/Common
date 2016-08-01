@@ -63,4 +63,5 @@
     <!-- 自动扫描注解的bean -->
     <context:component-scan base-package="com.tlc.marketing.business.user" />
     <context:component-scan base-package="com.tlc.marketing.business.core" /> 
+    <context:component-scan base-package="com.tlc.marketing.business.menu" /> 
 </beans>

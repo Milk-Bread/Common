@@ -1,9 +1,7 @@
 package com.tlc.marketing.business.user;
 
-import com.tlc.marketing.domain.user.User;
+import com.tlc.marketing.domain.TlcUser;
 
 public interface UserService {
-  User selectUserById(Integer userId);
-
-  User loginCheck(String userName, String password);
+  TlcUser loginCheck(String userId, String password);
 }

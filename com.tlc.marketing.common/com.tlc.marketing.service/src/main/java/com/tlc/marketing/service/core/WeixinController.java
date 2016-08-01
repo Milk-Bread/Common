@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tlc.marketing.business.core.TokenService;
-import com.tlc.marketing.domain.core.CheckModel;
+import com.tlc.marketing.domain.CheckModel;
+import com.tlc.marketing.utils.Dict;
 
 
 @Controller
@@ -27,11 +28,12 @@ public class WeixinController {
    * @throws ParseException
    * @throws IOException
    */
-  @RequestMapping(value = "wechat.do", method = RequestMethod.GET)
+  @RequestMapping(value = "wechat", method = RequestMethod.GET)
   @ResponseBody
-  public String validate(String wxToken, CheckModel tokenModel) throws ParseException, IOException {
+  public String validate(CheckModel tokenModel) throws ParseException, IOException {
     System.out.println("asf");
-    return tokenService.validate(wxToken, tokenModel);
+    return tokenService.validate(Dict.WXTOKEN, tokenModel);
   }
+
 
 }

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tlc.marketing.dao.UserDao">
+    <!-- 登陆 -->
+    <select id="loginCheck" parameterType="com.tlc.marketing.domain.TlcUser" resultType="com.tlc.marketing.domain.TlcUser">
+        select userSeq,userId,userName,password,sex,age,addr,mobilePhone,phone,idType,idNo,roleSeq,channelId,createTime from tlcuser
+        WHERE userId = #{userId} and password = #{password}
+    </select>
+</mapper>

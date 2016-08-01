@@ -25,6 +25,3 @@ var _USER = {
 		userName:null,
 		sex:null
 };
-function closePop(){
-	$('#pop').hide();
-}

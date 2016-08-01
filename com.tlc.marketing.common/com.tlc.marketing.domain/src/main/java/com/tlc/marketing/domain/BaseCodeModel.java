@@ -1,8 +1,10 @@
-package com.tlc.marketing.domain.core;
+package com.tlc.marketing.domain;
 
 public class BaseCodeModel {
-  private String errcode;// 全局返回码
-  private String errmsg;// 说明
+  /** 全局返回码 **/
+  private String errcode;
+  /** 说明 **/
+  private String errmsg;
 
   public String getErrcode() {
     return errcode;

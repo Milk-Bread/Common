@@ -5,7 +5,7 @@ import java.util.Arrays;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.tlc.marketing.domain.core.CheckModel;
+import com.tlc.marketing.domain.CheckModel;
 import com.tlc.marketing.utils.CHECKMSG;
 import com.tlc.marketing.utils.Util;
 
@@ -35,6 +35,7 @@ public class TokenService {
       // 确认请求来至微信
       if (digest.equals(signature)) {
         // 最好此处将echostr存起来，以后每次校验消息来源都需要用到
+        System.out.println("校验成功");
         return echostr;
       }
     }

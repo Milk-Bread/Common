@@ -9,19 +9,19 @@
                 allowAnonymous: true
             },
             'Main': {
-            	url: '/Main/:userName/:password',
+            	url: '/Main',
                 templateUrl: 'views/Main/main.html',
                 dependencies: ['controllers/Main/main'],
                 allowAnonymous: true
-            },'Main.UserMng': {
-            	url: '/UserMng',
-                templateUrl: 'views/SysMng/userMng.html',
-                dependencies: ['controllers/SysMng/userMng'],
+            },'Main.UserManager': {
+            	url: '/UserManager',
+                templateUrl: 'views/SysMng/userManager.html',
+                dependencies: ['controllers/SysMng/userManager'],
                 allowAnonymous: true
-            },'Main.RoleMng': {
-            	url: '/RoleMng',
-                templateUrl: 'views/SysMng/roleMng.html',
-                dependencies: ['controllers/SysMng/roleMng'],
+            },'Main.RoleManager': {
+            	url: '/RoleManager',
+                templateUrl: 'views/SysMng/roleManager.html',
+                dependencies: ['controllers/SysMng/roleManager'],
                 allowAnonymous: true
             }
         }

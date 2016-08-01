@@ -1,4 +1,4 @@
-package com.tlc.marketing.domain.core;
+package com.tlc.marketing.domain;
 
 public class CheckModel extends BaseCodeModel {
   private String signature;
