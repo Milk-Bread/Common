@@ -17,7 +17,11 @@ define([ 'app'], function(app) {
 	        	formData, 
 	        	postCfg
 	        ).success(function(data,header,config,status){
-		    	callBack(data,header,config,status);
+		    	if(data._exceptionCode != null && data._exceptionCode == 'false'){
+		    		showError("错误提示",""+data._exceptionMsg);
+	        	}else{
+	        		callBack(data,header,config,status);
+	        	}
 		    }).error(function(data,header,config,status){
 		    	var errorStr = "网络错误";
 	        	if(data._exceptionMsg != null && data._exceptionMsg != undefined && data._exceptionMsg != ''){

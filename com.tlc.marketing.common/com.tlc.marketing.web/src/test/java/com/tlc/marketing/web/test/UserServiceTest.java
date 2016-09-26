@@ -14,7 +14,7 @@ public class UserServiceTest extends SpringTestCase {
 
   @Test
   public void selectUserByIdTest() {
-    TlcUser user = userService.selectUserById(1);
+    TlcUser user = userService.loginCheck("chepeiqing", "a88888888");
     System.out.println(user.getUserName() + ":" + user.getPassword());
   }
 }
