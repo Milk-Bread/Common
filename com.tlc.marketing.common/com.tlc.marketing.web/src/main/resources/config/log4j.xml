@@ -19,7 +19,7 @@
 
 	<!-- [公共Appender] 这个class表示输入到文件，并且按日期生成新文件-->  
 	<appender name="DEFAULT-APPENDER" class="org.apache.log4j.DailyRollingFileAppender">  
-		<param name="File" value="/Users/chepeiqing/Documents/excuteBank/WeChat/logs/common-default.log" />  <!-- ${logpath}项目根路径，自动获得，不用配置，可自己在web.xml中配置 -->
+		<param name="File" value="/myData/logs/common-default.log" />  <!-- ${logpath}项目根路径，自动获得，不用配置，可自己在web.xml中配置 -->
 		<param name="Append" value="true" />  <!-- 是否项目重启继续保存之前日志 -->
 		<param name="encoding" value="UTF-8" />  
 		<param name="threshold" value="all" /> <!-- 记录所有类型日志，记录它和比它等级高的日志all<debug -->
@@ -31,7 +31,7 @@
 
 	<!-- [debug日志APPENDER] -->  
 	<appender name="DEBUG-APPENDER" class="org.apache.log4j.DailyRollingFileAppender">  
-		<param name="File" value="/Users/chepeiqing/Documents/excuteBank/WeChat/logs/controller/debug-log.log" />  
+		<param name="File" value="/myData/logs/controller/debug-log.log" />
 		<param name="Append" value="true" />  
 		<param name="encoding" value="UTF-8" />  
 		<param name="DatePattern" value="'.'yyyy-MM-dd'.log'" />  
@@ -42,7 +42,7 @@
 
 	<!-- [info日志APPENDER] -->  
 	<appender name="INFO-APPENDER" class="org.apache.log4j.DailyRollingFileAppender">  
-		<param name="File" value="/Users/chepeiqing/Documents/excuteBank/WeChat/logs/controller/info-log.log" />  
+		<param name="File" value="/myData/logs/controller/info-log.log" />
 		<param name="Append" value="false" />  
 		<param name="encoding" value="UTF-8" />
 		<param name="DatePattern" value="'.'yyyy-MM-dd'.log'" />  
@@ -58,7 +58,7 @@
 
 	<!-- [组件日志APPENDER] -->  
 	<appender name="COMPONENT-APPENDER"  class="org.apache.log4j.DailyRollingFileAppender">  
-		<param name="File" value="/Users/chepeiqing/Documents/excuteBank/WeChat/logs/logistics-component.log" />  
+		<param name="File" value="/myData/logs/logistics-component.log" />
 		<param name="Append" value="true" />  
 		<param name="encoding" value="UTF-8" />  
 		<param name="DatePattern" value="'.'yyyy-MM-dd'.log'" />  
@@ -70,26 +70,21 @@
 	<!-- debug log -->  
 	<!-- name指定的是包名，表示这个logger只记录com.wzw.controller下的所有日志 -->
 	<logger name="com.tlc.controller" additivity="true">  <!-- additivity 是否继承root -->
-		<level value="${loggingLevel}"></level>  <!-- 现在级别 -->
-		<appender-ref ref="DEBUG-APPENDER" />  
-	</logger>  
-
-	<!-- info log -->  
-	<!-- name指定的是包名，这样只操作此包下的log -->
-	<logger name="com.tlc.controller" additivity="true">  
-		<level value="INFO"></level>  
-		<appender-ref ref="INFO-APPENDER" />  
-		<appender-ref ref="console"/>
-	</logger>  
+		<level value="debug"></level>  <!-- 现在级别 -->
+		<appender-ref ref="console" />  
+	</logger>
 
 	<!-- Root Logger -->  
 	<!-- 所有logger的父类，记录所有的日志。 -->
 	<root> 
 		<!-- 限定记录等级 -->
-		<level value="${rootLevel}"></level>
+		<level value="debug"></level>
 		<!-- 调用记录方式 -->
-		<appender-ref ref="DEFAULT-APPENDER" />
-		<appender-ref ref="console"/>
+		<appender-ref ref="console" />
+<!-- 		<appender-ref ref="COMPONENT-APPENDER" /> -->
+<!-- 		<appender-ref ref="DEBUG-APPENDER" /> -->
+<!-- 		<appender-ref ref="INFO-APPENDER" /> -->
+		<!--<appender-ref ref="console"/>-->
 	</root>  
 
 </log4j:configuration>

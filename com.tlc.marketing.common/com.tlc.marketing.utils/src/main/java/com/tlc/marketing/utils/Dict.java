@@ -8,11 +8,11 @@ package com.tlc.marketing.utils;
  */
 public class Dict {
     /** 微信开发者校验token **/
-    public static String WXTOKEN = "wxf8b4f85f3a794e77";
+    public static String WXTOKEN = "wx66ba812ba25ec00a";
     /** 微信AppId号 **/
-    public static String APPID = "wxf8b4f85f3a794e77";
+    public static String APPID = "wx66ba812ba25ec00a";
     /** 微信AppSecret号 **/
-    public static String APPSECRET = "26a8614808f4ff4d6e0f22b3594c65e1";
+    public static String APPSECRET = "274b6e120868c428012172546142d97a";
     /** 获取access_token填写client_credential **/
     public static String CLIENT_CREDENTIAL = "client_credential";
 }

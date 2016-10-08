@@ -45,9 +45,9 @@ public class WeixinController {
         return tokenService.validate(Dict.WXTOKEN, tokenModel);
     }
 
-    @RequestMapping(value = "getSessToken", method = RequestMethod.GET)
+    @RequestMapping(value = "getAccessToken", method = RequestMethod.GET)
     @ResponseBody
-    public String getSessToken() {
+    public String getAccessToken() {
         Map<String, Object> sendParam = new HashMap<String, Object>();
         sendParam.put("grant_type", Dict.CLIENT_CREDENTIAL);
         sendParam.put("appid", Dict.WXTOKEN);
