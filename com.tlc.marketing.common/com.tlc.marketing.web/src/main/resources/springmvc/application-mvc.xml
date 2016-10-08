@@ -64,4 +64,5 @@
     <context:component-scan base-package="com.tlc.marketing.business.user" />
     <context:component-scan base-package="com.tlc.marketing.business.core" /> 
     <context:component-scan base-package="com.tlc.marketing.business.menu" /> 
+    <context:component-scan base-package="com.tlc.marketing.business.wechat" /> 
 </beans>

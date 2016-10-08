@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.tlc.marketing.commom.Transport;
+import com.tlc.marketing.utils.Dict;
 
 public class HttpClientTransport implements Transport {
     private static Logger logger = LoggerFactory.getLogger(HttpClientTransport.class);
@@ -30,10 +31,11 @@ public class HttpClientTransport implements Transport {
 
     @Override
     public Object submit(Object sendParam) throws Exception {
+        Map<String, Object> sendMap = (Map<String, Object>) sendParam;
         if (method.equalsIgnoreCase("POST")) {
-            return sendPost(url, sendParam);
+            return sendPost(url + "/" + sendMap.get(Dict.TRANS_NAME), sendParam);
         } else {
-            return sendGet(url, sendParam);
+            return sendGet(url + "/" + sendMap.get(Dict.TRANS_NAME), sendParam);
         }
     }
 
@@ -66,7 +68,7 @@ public class HttpClientTransport implements Transport {
             Map<String, List<String>> map = connection.getHeaderFields();
             // 遍历所有的响应头字段
             for (String key : map.keySet()) {
-                logger.debug(key + "--->" + map.get(key));
+                logger.debug(key + "===>" + map.get(key));
             }
             // 定义 BufferedReader输入流来读取URL的响应
             in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -154,7 +156,7 @@ public class HttpClientTransport implements Transport {
         ObjectMapper mapper = new ObjectMapper();
         try {
             Map<String, Object> responseMap = mapper.readValue(message, HashMap.class);
-            logger.debug("http response:" + responseMap);
+            logger.debug("http response:===>" + responseMap);
             return responseMap;
         } catch (JsonParseException e) {
             e.printStackTrace();
@@ -179,7 +181,7 @@ public class HttpClientTransport implements Transport {
         if (s.endsWith("&")) {
             s.substring(0, s.lastIndexOf("&"));
         }
-        logger.debug("http request:" + s);
+        logger.debug("http request:===>" + s);
         return s;
     }
 
