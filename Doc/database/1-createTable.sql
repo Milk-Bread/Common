@@ -2,6 +2,9 @@
 /* DBMS name:      MySQL 5.0                                    */
 /* Created on:     16/8/1 下午3:23:56                             */
 /*==============================================================*/
+CREATE DATABASE `tlc`  
+CHARACTER SET 'utf8'  
+COLLATE 'utf8_general_ci'; 
 
 
 drop table if exists UserMenuRelate;
@@ -24,7 +27,7 @@ create table Menu
    TransId              varchar(20),
    CreateTime           TIMESTAMP not null,
    primary key (MenuId)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 alter table Menu comment '菜单表';
 
@@ -37,7 +40,7 @@ create table Role
    RoleName             VARCHAR(30) not null,
    CreateTime           TIMESTAMP not null,
    primary key (RoleSeq)
-)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
 auto_increment = 600;
 
 alter table Role comment '角色表';
@@ -62,7 +65,7 @@ create table TlcUser
    CreateTime           timestamp,
    Addr                 VARCHAR(500),
    primary key (UserSeq)
-)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
 auto_increment = 8000000;
 
 alter table TlcUser comment '用户表';
@@ -75,7 +78,7 @@ create table UserMenuRelate
    RoleSeq              INTEGER not null,
    MenuId               varchar(20) not null,
    primary key (RoleSeq, MenuId)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;;
 
 alter table UserMenuRelate comment '角色菜单关联表';
 
@@ -87,4 +90,6 @@ alter table UserMenuRelate add constraint FK_Reference_2 foreign key (RoleSeq)
 
 alter table UserMenuRelate add constraint FK_Reference_3 foreign key (MenuId)
       references Menu (MenuId) on delete restrict on update restrict;
+
+
 
