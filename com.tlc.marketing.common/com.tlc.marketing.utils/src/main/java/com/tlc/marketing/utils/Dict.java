@@ -7,12 +7,13 @@ package com.tlc.marketing.utils;
  * @version 1.0 2016年7月29日 上午11:17:52 by chepeiqing (chepeiqing@icloud.com)
  */
 public class Dict {
-    /** 微信开发者校验token **/
-    public static String WXTOKEN = "wx66ba812ba25ec00a";
-    /** 微信AppId号 **/
-    public static String APPID = "wx66ba812ba25ec00a";
-    /** 微信AppSecret号 **/
-    public static String APPSECRET = "274b6e120868c428012172546142d97a";
-    /** 获取access_token填写client_credential **/
-    public static String CLIENT_CREDENTIAL = "client_credential";
+    /** 交易名称 **/
+    public static String TRANS_NAME = "TransName";
+    /** 交易名称 **/
+    public static String GRANT_TYPE = "grant_type";
+    /** 交易名称 **/
+    public static String APPID = "appid";
+    /** 交易名称 **/
+    public static String SECRET = "secret";
+
 }
