@@ -12,8 +12,20 @@ drop table if exists Menu;
 
 drop table if exists TlcUser;
 drop table if exists Role;
+drop table if exists AccessToken;
 
-
+/*==============================================================*/
+/* Table: AccessToken                                           */
+/*==============================================================*/
+create table AccessToken
+(
+	tokenSeq integer auto_increment,
+	accessToken varchar(512) not null,
+	invalidTime varchar(5) not null,
+	createTime timestamp,
+	updateTime timestamp,
+	primary key (tokenSeq)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*==============================================================*/
 /* Table: Menu                                                  */

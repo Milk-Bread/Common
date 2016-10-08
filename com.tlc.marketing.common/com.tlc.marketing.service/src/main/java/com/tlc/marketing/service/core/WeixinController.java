@@ -16,9 +16,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tlc.marketing.business.core.TokenService;
+import com.tlc.marketing.business.wechat.WeChatService;
 import com.tlc.marketing.commom.Transport;
 import com.tlc.marketing.domain.CheckModel;
+import com.tlc.marketing.utils.Constants;
 import com.tlc.marketing.utils.Dict;
+import com.tlc.marketing.utils.WeChat;
 
 
 @Controller
@@ -29,6 +32,8 @@ public class WeixinController {
     private static Logger logger = LoggerFactory.getLogger(WeixinController.class);
     @Resource(name = "httpTransport")
     private Transport transport;
+    @Resource
+    private WeChatService weChatService;
 
     /**
      * 开发者模式token校验
@@ -42,22 +47,35 @@ public class WeixinController {
     @ResponseBody
     public String validate(CheckModel tokenModel) throws ParseException, IOException {
         logger.debug("微信token校验" + tokenModel.toString());
-        return tokenService.validate(Dict.WXTOKEN, tokenModel);
+        return tokenService.validate(Constants.WXTOKEN, tokenModel);
     }
 
     @RequestMapping(value = "getAccessToken", method = RequestMethod.GET)
     @ResponseBody
     public String getAccessToken() {
         Map<String, Object> sendParam = new HashMap<String, Object>();
-        sendParam.put("grant_type", Dict.CLIENT_CREDENTIAL);
-        sendParam.put("appid", Dict.WXTOKEN);
-        sendParam.put("secret", Dict.APPSECRET);
+        sendParam.put(Dict.GRANT_TYPE, Constants.CLIENT_CREDENTIAL);
+        sendParam.put(Dict.APPID, Constants.WXTOKEN);
+        sendParam.put(Dict.SECRET, Constants.APPSECRET);
+        sendParam.put(Dict.TRANS_NAME, WeChat.TOKEN);
+        String accessToken = "";
         try {
-            Map<String, Object> resp = (Map<String, Object>) transport.submit(sendParam);
-            System.out.println(resp);
+            Map<String, Object> access = weChatService.qAccessToken();
+            logger.debug(access.toString());
+            if (false == (Boolean) access.get("effective")) {
+                Map<String, Object> resp = (Map<String, Object>) transport.submit(sendParam);
+                sendParam = new HashMap<String, Object>();
+                sendParam.put("accessToken", resp.get("access_token"));
+                sendParam.put("invalidTime", resp.get("expires_in"));
+                accessToken = (String) resp.get("access_token");
+                weChatService.dAccessToken();
+                weChatService.iAccessToken(sendParam);
+            } else {
+                accessToken = (String) access.get("accessToken");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return accessToken;
     }
 }

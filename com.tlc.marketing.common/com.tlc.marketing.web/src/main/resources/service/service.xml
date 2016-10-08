@@ -9,7 +9,7 @@
 			<value>Get</value>
 		</property>
 		<property name="url">
-			<value>https://api.weixin.qq.com/cgi-bin/token</value>
+			<value>https://api.weixin.qq.com/cgi-bin</value>
 		</property>
 		<property name="readTimeout">
 			<value>30000</value>
