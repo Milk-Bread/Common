@@ -15,5 +15,7 @@ public class Dict {
     public static String APPID = "appid";
     /** 交易名称 **/
     public static String SECRET = "secret";
+    /** access_token **/
+    public static String ACCESS_TOKEN = "access_token";
 
 }

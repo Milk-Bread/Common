@@ -8,5 +8,12 @@ package com.tlc.marketing.utils;
  */
 public class WeChat {
     /** 获取access_token号 **/
-    public static String TOKEN = "token";
+    public static String TOKEN = "https://api.weixin.qq.com/cgi-bin/token";
+    /** 创建二维码ticket（永久/临时） **/
+    public static String CREAT_QRCODE_IMAGE = "https://api.weixin.qq.com/cgi-bin/qrcode/create";
+    /** 生成关注二维码 **/
+    public static String SHOW_QRCODE = "https://mp.weixin.qq.com/cgi-bin/showqrcode";
+
+
+
 }

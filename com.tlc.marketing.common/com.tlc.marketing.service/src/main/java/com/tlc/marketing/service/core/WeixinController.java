@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletInputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +24,7 @@ import com.tlc.marketing.commom.Transport;
 import com.tlc.marketing.domain.CheckModel;
 import com.tlc.marketing.utils.Constants;
 import com.tlc.marketing.utils.Dict;
+import com.tlc.marketing.utils.Util;
 import com.tlc.marketing.utils.WeChat;
 
 
@@ -50,26 +54,49 @@ public class WeixinController {
         return tokenService.validate(Constants.WXTOKEN, tokenModel);
     }
 
+    /**
+     * Description: 接收微信推送的消息
+     * @Version1.0 2016年10月9日 下午4:37:49 by chepeiqing (chepeiqing@icloud.com)
+     * @param tokenModel
+     * @return
+     * @throws ParseException
+     * @throws IOException
+     */
+    @RequestMapping(value = "wechat", method = RequestMethod.POST)
+    @ResponseBody
+    public String acceptMessage(HttpServletRequest request, HttpServletResponse response) throws ParseException, IOException {
+        logger.debug("微信消息接收：");
+        // 处理接收消息
+        ServletInputStream in = request.getInputStream();
+        // 将POST流转换为XStream对象
+        // XStream xs = SerializeXmlUtil.createXstream();
+        // return tokenService.validate(Constants.WXTOKEN, tokenModel);
+        return null;
+    }
+
+
+
     @RequestMapping(value = "getAccessToken", method = RequestMethod.GET)
     @ResponseBody
     public String getAccessToken() {
         Map<String, Object> sendParam = new HashMap<String, Object>();
         sendParam.put(Dict.GRANT_TYPE, Constants.CLIENT_CREDENTIAL);
-        sendParam.put(Dict.APPID, Constants.WXTOKEN);
+        sendParam.put(Dict.APPID, Constants.APPID);
         sendParam.put(Dict.SECRET, Constants.APPSECRET);
         sendParam.put(Dict.TRANS_NAME, WeChat.TOKEN);
         String accessToken = "";
         try {
             Map<String, Object> access = weChatService.qAccessToken();
-            logger.debug(access.toString());
-            if (false == (Boolean) access.get("effective")) {
-                Map<String, Object> resp = (Map<String, Object>) transport.submit(sendParam);
+            if (access == null || false == (Boolean) access.get("effective")) {
+                Map<String, Object> resp = (Map<String, Object>) transport.submit(sendParam, "Get");
                 sendParam = new HashMap<String, Object>();
                 sendParam.put("accessToken", resp.get("access_token"));
                 sendParam.put("invalidTime", resp.get("expires_in"));
                 accessToken = (String) resp.get("access_token");
-                weChatService.dAccessToken();
-                weChatService.iAccessToken(sendParam);
+                if (accessToken != null) {
+                    weChatService.dAccessToken();
+                    weChatService.iAccessToken(sendParam);
+                }
             } else {
                 accessToken = (String) access.get("accessToken");
             }
@@ -77,5 +104,30 @@ public class WeixinController {
             e.printStackTrace();
         }
         return accessToken;
+    }
+
+    @RequestMapping(value = "createQrcodeImg", method = RequestMethod.GET)
+    @ResponseBody
+    public void creatQrcodeImage() throws Exception {
+        Map<String, Object> sendParam = new HashMap<String, Object>();
+        for (int i = 0; i < 1000; i++) {
+            String id = "8" + Util.getCurrentTime() + i;
+            // 二维码类型，QR_SCENE为临时,QR_LIMIT_SCENE为永久,QR_LIMIT_STR_SCENE为永久的字符串参数值
+            sendParam.put("action_name", "QR_LIMIT_SCENE");
+            Map<String, Object> action_info = new HashMap<>();
+            Map<String, Object> scene = new HashMap<>();
+            scene.put("scene_str", id);
+            action_info.put("scene", scene);
+            sendParam.put("action_info", action_info);
+            sendParam.put(Dict.TRANS_NAME, WeChat.CREAT_QRCODE_IMAGE);
+            sendParam.put(Dict.ACCESS_TOKEN, getAccessToken());
+            // 生成二维码ticket
+            Map<String, Object> respTicket = (Map<String, Object>) transport.submit(sendParam, "POST");
+            sendParam = new HashMap<>();
+            sendParam.put("ticket", respTicket.get("ticket"));
+            sendParam.put("Name", id);
+            sendParam.put(Dict.TRANS_NAME, WeChat.SHOW_QRCODE);
+            transport.submit(sendParam, "Get");
+        }
     }
 }

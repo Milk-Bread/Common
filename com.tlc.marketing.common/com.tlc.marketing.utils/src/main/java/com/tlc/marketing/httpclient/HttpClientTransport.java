@@ -1,14 +1,18 @@
 package com.tlc.marketing.httpclient;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import net.sf.json.JSONObject;
 
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
@@ -17,25 +21,23 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.tlc.marketing.commom.Transport;
+import com.tlc.marketing.utils.Constants;
 import com.tlc.marketing.utils.Dict;
 
 public class HttpClientTransport implements Transport {
     private static Logger logger = LoggerFactory.getLogger(HttpClientTransport.class);
-    /** 请求方式 **/
-    private String method = "POST";
-    private String url;
     /** 读取超时时间 **/
     private Integer readTimeout;
     /** 连接超时时间 **/
     private Integer connectTimeout;
 
     @Override
-    public Object submit(Object sendParam) throws Exception {
+    public Object submit(Object sendParam, String method) throws Exception {
         Map<String, Object> sendMap = (Map<String, Object>) sendParam;
         if (method.equalsIgnoreCase("POST")) {
-            return sendPost(url + "/" + sendMap.get(Dict.TRANS_NAME), sendParam);
+            return sendPost(sendMap.get(Dict.TRANS_NAME).toString(), sendParam);
         } else {
-            return sendGet(url + "/" + sendMap.get(Dict.TRANS_NAME), sendParam);
+            return sendGet(sendMap.get(Dict.TRANS_NAME).toString(), sendParam);
         }
     }
 
@@ -51,6 +53,7 @@ public class HttpClientTransport implements Transport {
         String result = "";
         BufferedReader in = null;
         try {
+            logger.debug("Get请求");
             String urlNameString = url + "?" + getUrlParamsByMap((Map) param);
             URL realUrl = new URL(urlNameString);
             // 打开和URL之间的连接
@@ -61,7 +64,7 @@ public class HttpClientTransport implements Transport {
             connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             connection.setConnectTimeout(connectTimeout);// 连接超时30秒
             connection.setReadTimeout(readTimeout);// 读取超时30秒
-            connection.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
+            // connection.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
             // 建立实际的连接
             connection.connect();
             // 获取所有响应头字段
@@ -70,6 +73,24 @@ public class HttpClientTransport implements Transport {
             for (String key : map.keySet()) {
                 logger.debug(key + "===>" + map.get(key));
             }
+            if ("image/jpg".equals(connection.getContentType())) {
+                InputStream inputStream = connection.getInputStream();
+                try {
+                    byte[] data = new byte[1024];
+                    int len = 0;
+                    FileOutputStream fileOutputStream = null;
+                    fileOutputStream = new FileOutputStream(Constants.PATH_QRCODE_IMAGE + "/" + ((Map) param).get("Name") + ".jpg");
+                    while ((len = inputStream.read(data)) != -1) {
+                        fileOutputStream.write(data, 0, len);
+
+                    }
+                } catch (IOException e) {
+                    logger.debug("图片写入失败", e);
+                } finally {
+                    if (inputStream != null) inputStream.close();
+                }
+                return null;
+            }
             // 定义 BufferedReader输入流来读取URL的响应
             in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String line;
@@ -77,7 +98,7 @@ public class HttpClientTransport implements Transport {
                 result += line;
             }
         } catch (Exception e) {
-            System.out.println("发送GET请求出现异常！" + e);
+            logger.debug("发送GET请求出现异常！", e);
             e.printStackTrace();
         }
         // 使用finally块来关闭输入流
@@ -103,27 +124,30 @@ public class HttpClientTransport implements Transport {
      * @return 所代表远程资源的响应结果
      */
     public Object sendPost(String url, Object param) {
-        PrintWriter out = null;
+        DataOutputStream out = null;
         BufferedReader in = null;
         String result = "";
         try {
-            URL realUrl = new URL(url);
+            logger.debug("Post请求");
+            URL realUrl = new URL(url + "?" + Dict.ACCESS_TOKEN + "=" + ((Map) param).get(Dict.ACCESS_TOKEN));
             // 打开和URL之间的连接
             URLConnection connection = realUrl.openConnection();
             // 设置通用的请求属性
             connection.setRequestProperty("accept", "*/*");
             connection.setRequestProperty("connection", "Keep-Alive");
-            connection.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
+            // connection.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
             connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             connection.setConnectTimeout(connectTimeout);// 连接超时30秒
             connection.setReadTimeout(readTimeout);// 读取超时30秒
             // 发送POST请求必须设置如下两行
             connection.setDoOutput(true);
             connection.setDoInput(true);
+            connection.setUseCaches(false);
+            connection.connect();
             // 获取URLConnection对象对应的输出流
-            out = new PrintWriter(connection.getOutputStream());
+            out = new DataOutputStream(connection.getOutputStream());
             // 发送请求参数
-            out.print(getUrlParamsByMap((Map) param));
+            out.writeBytes(getMapByJson((Map) param).toString());
             // flush输出流的缓冲
             out.flush();
             // 定义BufferedReader输入流来读取URL的响应
@@ -155,6 +179,7 @@ public class HttpClientTransport implements Transport {
     public static Object getResponseParam(String message) {
         ObjectMapper mapper = new ObjectMapper();
         try {
+            logger.debug("http message:===>" + message);
             Map<String, Object> responseMap = mapper.readValue(message, HashMap.class);
             logger.debug("http response:===>" + responseMap);
             return responseMap;
@@ -174,23 +199,24 @@ public class HttpClientTransport implements Transport {
         }
         StringBuffer sb = new StringBuffer();
         for (Map.Entry<String, Object> entry : map.entrySet()) {
+            if (Dict.TRANS_NAME.equals(entry.getKey())) {
+                continue;
+            }
             sb.append(entry.getKey() + "=" + entry.getValue());
             sb.append("&");
         }
         String s = sb.toString();
         if (s.endsWith("&")) {
-            s.substring(0, s.lastIndexOf("&"));
+            s = s.substring(0, s.lastIndexOf("&"));
         }
         logger.debug("http request:===>" + s);
         return s;
     }
 
-    public void setMethod(String method) {
-        this.method = method;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
+    public static JSONObject getMapByJson(Map<String, Object> map) {
+        JSONObject json = JSONObject.fromObject(map);
+        logger.debug("http request:===>" + json);
+        return json;
     }
 
     public void setReadTimeout(Integer readTimeout) {

@@ -9,5 +9,5 @@ import com.tlc.marketing.service.Service;
  * @version 1.0 2016年10月2日 上午10:53:43 by chepeiqing (chepeiqing@icloud.com)
  */
 public abstract interface Transport extends Service {
-    public abstract Object submit(Object sendParam) throws Exception;
+    public abstract Object submit(Object sendParam, String method) throws Exception;
 }
