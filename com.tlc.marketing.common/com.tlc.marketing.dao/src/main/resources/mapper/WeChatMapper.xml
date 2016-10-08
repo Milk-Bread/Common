@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tlc.marketing.dao.WeChantDao">
+	<!-- 插入AccessToken表 -->
+	<insert id="iAccessToken" parameterType="java.util.HashMap">
+		INSERT INTO AccessToken(accessToken,invalidTime,createTime,updateTime) VALUES(#{accessToken},#{invalidTime},now(),now())
+	</insert>
+   	<!-- 删除过期的accesstoken -->
+   	<delete id="dAccessToken">
+   		DELETE FROM AccessToken
+   	</delete>
+   	<select id="qAccessToken" resultType="java.util.HashMap">
+   		SELECT tokenSeq,accessToken,invalidTime,createTime,updateTime from AccessToken
+   	</select>
+</mapper>
