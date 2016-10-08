@@ -2,10 +2,8 @@ package com.tlc.marketing.httpclient;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.HashMap;
@@ -37,26 +35,6 @@ public class HttpClientTransport implements Transport {
         } else {
             return sendGet(url, sendParam);
         }
-    }
-
-    public Object send(String url, Object param) throws IOException {
-        String urlNameString = url + "?" + getUrlParamsByMap((Map) param);
-        URL urlGet = new URL(urlNameString);
-        HttpURLConnection http = (HttpURLConnection) urlGet.openConnection();
-        http.setRequestMethod("GET"); // 必须是get方式请求
-        http.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-        http.setDoOutput(true);
-        http.setDoInput(true);
-        http.connect();
-        InputStream is = http.getInputStream();
-        int size = is.available();
-        byte[] jsonBytes = new byte[size];
-        is.read(jsonBytes);
-        String message = new String(jsonBytes, "UTF-8");
-        System.out.println("====================获取token结束==============================");
-        System.out.println(message);
-        is.close();
-        return getResponseParam(message);
     }
 
     /**
