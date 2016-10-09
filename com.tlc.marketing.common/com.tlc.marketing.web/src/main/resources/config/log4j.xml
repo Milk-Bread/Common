@@ -71,7 +71,8 @@
 	<!-- name指定的是包名，表示这个logger只记录com.wzw.controller下的所有日志 -->
 	<logger name="com.tlc.controller" additivity="true">  <!-- additivity 是否继承root -->
 		<level value="debug"></level>  <!-- 现在级别 -->
-		<appender-ref ref="console" />  
+		<!--<appender-ref ref="DEFAULT-APPENDER" />-->
+		<appender-ref ref="console" />
 	</logger>
 
 	<!-- Root Logger -->  
@@ -82,7 +83,7 @@
 		<!-- 调用记录方式 -->
 		<appender-ref ref="console" />
 <!-- 		<appender-ref ref="COMPONENT-APPENDER" /> -->
-<!-- 		<appender-ref ref="DEBUG-APPENDER" /> -->
+ 		<!--<appender-ref ref="DEBUG-APPENDER" />-->
 <!-- 		<appender-ref ref="INFO-APPENDER" /> -->
 		<!--<appender-ref ref="console"/>-->
 	</root>  
