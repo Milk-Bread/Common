@@ -46,6 +46,7 @@ public class Transformer {
             ServletInputStream in = request.getInputStream();
             Document document = reader.read(in);
             Element root = document.getRootElement();
+            logger.debug("WeChat request message:===>\r\n"+document.asXML());
             // 得到根元素的所有子节点
             List<Element> elementList = root.elements();
             // 将解析结果存储在HashMap中
@@ -56,8 +57,8 @@ public class Transformer {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        logger.debug("WeChat message end");
-        logger.debug("WeChat map:===>" + map);
+        logger.debug("WeChat request message map:===>" + map);
+        logger.debug("WeChat request message end");
         return map;
     }
 
