@@ -25,4 +25,12 @@ public interface WeChatService {
      */
     public Map<String, Object> qAccessToken() throws ParseException;
 
+    /**
+     * Description:微信消息分发
+     * @Version1.0 2016年10月10日 下午10:47:31 by chepeiqing (chepeiqing@icloud.com)
+     * @return
+     * @param param
+     * @return
+     */
+    public Map<String, Object> msgType(Map<String, Object> param);
 }

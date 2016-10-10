@@ -1,15 +1,14 @@
 package com.tlc.marketing.service.core;
 
-import java.io.IOException;
-import java.text.ParseException;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.annotation.Resource;
-import javax.servlet.ServletInputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.tlc.marketing.business.core.TokenService;
+import com.tlc.marketing.business.core.Transformer;
+import com.tlc.marketing.business.wechat.WeChatService;
+import com.tlc.marketing.commom.Transport;
+import com.tlc.marketing.domain.CheckModel;
+import com.tlc.marketing.utils.Constants;
+import com.tlc.marketing.utils.Dict;
+import com.tlc.marketing.utils.Util;
+import com.tlc.marketing.utils.WeChat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +17,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.tlc.marketing.business.core.TokenService;
-import com.tlc.marketing.business.wechat.WeChatService;
-import com.tlc.marketing.commom.Transport;
-import com.tlc.marketing.domain.CheckModel;
-import com.tlc.marketing.utils.Constants;
-import com.tlc.marketing.utils.Dict;
-import com.tlc.marketing.utils.Util;
-import com.tlc.marketing.utils.WeChat;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Controller
@@ -38,11 +36,12 @@ public class WeixinController {
     private Transport transport;
     @Resource
     private WeChatService weChatService;
+    @Autowired
+    private Transformer transformer;
 
     /**
      * 开发者模式token校验
-     * @param wxAccount 开发者url后缀
-     * @param response
+     *
      * @param tokenModel
      * @throws ParseException
      * @throws IOException
@@ -56,24 +55,20 @@ public class WeixinController {
 
     /**
      * Description: 接收微信推送的消息
-     * @Version1.0 2016年10月9日 下午4:37:49 by chepeiqing (chepeiqing@icloud.com)
-     * @param tokenModel
+     *
      * @return
      * @throws ParseException
      * @throws IOException
+     * @Version1.0 2016年10月9日 下午4:37:49 by chepeiqing (chepeiqing@icloud.com)
      */
     @RequestMapping(value = "wechat", method = RequestMethod.POST)
     @ResponseBody
-    public String acceptMessage(HttpServletRequest request, HttpServletResponse response) throws ParseException, IOException {
-        logger.debug("微信消息接收：");
-        // 处理接收消息
-        ServletInputStream in = request.getInputStream();
-        // 将POST流转换为XStream对象
-        // XStream xs = SerializeXmlUtil.createXstream();
-        // return tokenService.validate(Constants.WXTOKEN, tokenModel);
-        return null;
+    public void acceptMessage(HttpServletRequest request, HttpServletResponse response) throws ParseException, IOException {
+        Map<String, Object> map = transformer.parse(request);
+        Map<String, Object> msgMap = weChatService.msgType(map);
+        String respXml = transformer.former(msgMap);
+        response.getWriter().write(respXml);
     }
-
 
 
     @RequestMapping(value = "getAccessToken", method = RequestMethod.GET)
@@ -110,7 +105,7 @@ public class WeixinController {
     @ResponseBody
     public void creatQrcodeImage() throws Exception {
         Map<String, Object> sendParam = new HashMap<String, Object>();
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 10; i++) {
             String id = "8" + Util.getCurrentTime() + i;
             // 二维码类型，QR_SCENE为临时,QR_LIMIT_SCENE为永久,QR_LIMIT_STR_SCENE为永久的字符串参数值
             sendParam.put("action_name", "QR_LIMIT_SCENE");
