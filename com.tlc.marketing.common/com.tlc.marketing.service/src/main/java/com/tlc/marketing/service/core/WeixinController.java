@@ -42,8 +42,6 @@ public class WeixinController {
     /**
      * 开发者模式token校验
      *
-     * @param wxAccount  开发者url后缀
-     * @param response
      * @param tokenModel
      * @throws ParseException
      * @throws IOException
