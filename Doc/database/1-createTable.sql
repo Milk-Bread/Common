@@ -13,6 +13,7 @@ drop table if exists Menu;
 drop table if exists TlcUser;
 drop table if exists Role;
 drop table if exists AccessToken;
+drop table if exists QrcodeImg;
 
 /*==============================================================*/
 /* Table: AccessToken                                           */
@@ -26,6 +27,26 @@ create table AccessToken
 	updateTime timestamp,
 	primary key (tokenSeq)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+alter table AccessToken comment 'accesstoken 表';
+
+/*==============================================================*/
+/* Table: AccessToken                                           */
+/*==============================================================*/
+create table QrcodeImg(
+   qrcodeSeq integer auto_increment,
+   appId varchar(20) not null,
+   actionName varchar(20) not null,
+   sceneId varchar(50) not null,
+   ticket varchar(100) not null,
+   url varchar(100) not null,
+   qrcodeName varchar(50) not null,
+   preservation varchar(50) not null,
+   state char(1) not null,
+   createTime timestamp,
+   updateTime timestamp,
+   primary key (qrcodeSeq)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+alter table QrcodeImg comment '二维码生成记录表';
 
 /*==============================================================*/
 /* Table: Menu                                                  */
