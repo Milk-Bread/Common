@@ -176,8 +176,8 @@ public class WeixinController {
         Map<String, Object> sendParam = new HashMap<String, Object>();
         sendParam.put(Dict.TRANS_NAME, WeChat.ADD_MATERIAL);
         sendParam.put(Dict.ACCESS_TOKEN, getAccessToken());
-        sendParam.put(Dict.FILEOBJ, "/Users/chepeiqing/Desktop/images/8201610091456000.jpg");
-        String type = "image";
+        sendParam.put(Dict.FILEOBJ, request.getParameter(Dict.FILEOBJ));
+        String type = request.getParameter("type");
         Map respMap = (Map) transport.addMaterial(sendParam, type);
         logger.debug(respMap.toString());
         return respMap;
