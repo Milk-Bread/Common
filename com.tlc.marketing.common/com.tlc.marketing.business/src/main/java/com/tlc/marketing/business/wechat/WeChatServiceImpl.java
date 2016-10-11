@@ -109,6 +109,16 @@ public class WeChatServiceImpl implements WeChatService {
     }
 
     /**
+     * Description:记录生成的二维码
+     *
+     * @param map
+     */
+    @Override
+    public void iQrcodeimg(Map<String, Object> map) {
+        weChatDao.iQrcodeimg(map);
+    }
+
+    /**
      * 消息类型为文本消息处理方法
      *
      * @param msgMap

@@ -29,4 +29,10 @@ public interface WeChantDao {
      * @return
      */
     public Map<String, Object> qAccessToken();
+
+    /**
+     * Description:记录生成的二维码
+     * @param map
+     */
+    public void iQrcodeimg(Map<String, Object> map);
 }

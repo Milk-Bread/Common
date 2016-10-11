@@ -33,4 +33,9 @@ public interface WeChatService {
      * @return
      */
     public Map<String, Object> msgType(Map<String, Object> param);
+    /**
+     * Description:记录生成的二维码
+     * @param map
+     */
+    public void iQrcodeimg(Map<String, Object> map);
 }

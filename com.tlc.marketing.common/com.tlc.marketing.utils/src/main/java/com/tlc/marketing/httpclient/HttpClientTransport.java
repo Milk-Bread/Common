@@ -71,6 +71,10 @@ public class HttpClientTransport implements Transport {
             if ("image/jpg".equals(connection.getContentType())) {
                 InputStream inputStream = connection.getInputStream();
                 try {
+                    File file = new File(Constants.PATH_QRCODE_IMAGE);
+                    if(!file.exists()){
+                        file.createNewFile();
+                    }
                     byte[] data = new byte[1024];
                     int len = 0;
                     FileOutputStream fileOutputStream = null;

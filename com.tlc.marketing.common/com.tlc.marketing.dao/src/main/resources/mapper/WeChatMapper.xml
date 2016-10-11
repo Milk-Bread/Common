@@ -13,4 +13,8 @@
    	<select id="qAccessToken" resultType="java.util.HashMap">
    		SELECT tokenSeq,accessToken,invalidTime,createTime,updateTime from AccessToken
    	</select>
+	<select id="iQrcodeimg" parameterType="java.util.HashMap">
+		INSERT INTO qrcodeimg (actionName, appId, sceneId, ticket, url, qrcodeName, state, preservation,createTime, updateTime)
+		VALUES (#{action_name},#{appId}, #{scene_id}, #{ticket}, #{url}, #{Name}, 'I',#{preservation}, now(), now())
+	</select>
 </mapper>

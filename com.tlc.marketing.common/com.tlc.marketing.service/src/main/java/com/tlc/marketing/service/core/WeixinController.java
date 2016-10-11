@@ -120,23 +120,31 @@ public class WeixinController {
     public void creatQrcodeImage(HttpServletRequest request) throws Exception {
         Map<String, Object> sendParam = new HashMap<String, Object>();
         for (int i = 0; i < 10; i++) {
-            String id = "W" + Util.getCurrentTime() + i;
+            String id = Util.getSysJournalNo(5,true);
             // 二维码类型，QR_SCENE为临时,QR_LIMIT_SCENE为永久,QR_LIMIT_STR_SCENE为永久的字符串参数值
-            sendParam.put("action_name", "QR_LIMIT_SCENE");
+            sendParam.put("action_name", Dict.QR_LIMIT_SCENE);
             Map<String, Object> action_info = new HashMap<>();
             Map<String, Object> scene = new HashMap<>();
-            scene.put("scene_str", id);
+            scene.put("scene_id", id);
             action_info.put("scene", scene);
             sendParam.put("action_info", action_info);
             sendParam.put(Dict.TRANS_NAME, WeChat.CREAT_QRCODE_IMAGE);
             sendParam.put(Dict.ACCESS_TOKEN, getAccessToken());
             // 生成二维码ticket
             Map<String, Object> respTicket = (Map<String, Object>) transport.sendPost(sendParam);
-            sendParam = new HashMap<>();
-            sendParam.put("ticket", respTicket.get("ticket"));
-            sendParam.put("Name", id);
-            sendParam.put(Dict.TRANS_NAME, WeChat.SHOW_QRCODE);
-            transport.sendGet(sendParam);
+            Map<String ,Object> ticket = new HashMap<>();
+            ticket.put("ticket", respTicket.get("ticket"));
+            ticket.put("Name", Util.getCurrentDate()+id);
+            ticket.put(Dict.TRANS_NAME, WeChat.SHOW_QRCODE);
+            transport.sendGet(ticket);
+            Map<String, Object> map = new HashMap<>();
+            map.putAll(ticket);
+            map.putAll(scene);
+            map.putAll(respTicket);
+            map.put("action_name", Dict.QR_LIMIT_SCENE);
+            map.put("appId", Constants.APPID);
+            map.put("preservation",Constants.PATH_QRCODE_IMAGE);
+            weChatService.iQrcodeimg(map);
         }
     }
 
