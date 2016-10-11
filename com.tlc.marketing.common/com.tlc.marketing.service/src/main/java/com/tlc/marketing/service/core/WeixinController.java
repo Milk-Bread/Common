@@ -22,7 +22,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -70,7 +72,12 @@ public class WeixinController {
         response.getWriter().write(respXml);
     }
 
-
+    /**
+     * Description: 获取access_token号
+     *
+     * @return access_token
+     * @Version1.0 2016年10月10日 下午4:37:49 by chepeiqing (chepeiqing@icloud.com)
+     */
     @RequestMapping(value = "getAccessToken", method = RequestMethod.GET)
     @ResponseBody
     public String getAccessToken() {
@@ -83,7 +90,7 @@ public class WeixinController {
         try {
             Map<String, Object> access = weChatService.qAccessToken();
             if (access == null || false == (Boolean) access.get("effective")) {
-                Map<String, Object> resp = (Map<String, Object>) transport.submit(sendParam, "Get");
+                Map<String, Object> resp = (Map<String, Object>) transport.sendGet(sendParam);
                 sendParam = new HashMap<String, Object>();
                 sendParam.put("accessToken", resp.get("access_token"));
                 sendParam.put("invalidTime", resp.get("expires_in"));
@@ -101,9 +108,16 @@ public class WeixinController {
         return accessToken;
     }
 
-    @RequestMapping(value = "createQrcodeImg", method = RequestMethod.GET)
+    /**
+     * Description: 生成带参数微信二维码
+     *
+     * @return
+     * @throws Exception
+     * @Version1.0 2016年10月10日 下午4:37:49 by chepeiqing (chepeiqing@icloud.com)
+     */
+    @RequestMapping(value = "createQrcodeImg", method = RequestMethod.POST)
     @ResponseBody
-    public void creatQrcodeImage() throws Exception {
+    public void creatQrcodeImage(HttpServletRequest request) throws Exception {
         Map<String, Object> sendParam = new HashMap<String, Object>();
         for (int i = 0; i < 10; i++) {
             String id = "8" + Util.getCurrentTime() + i;
@@ -117,12 +131,76 @@ public class WeixinController {
             sendParam.put(Dict.TRANS_NAME, WeChat.CREAT_QRCODE_IMAGE);
             sendParam.put(Dict.ACCESS_TOKEN, getAccessToken());
             // 生成二维码ticket
-            Map<String, Object> respTicket = (Map<String, Object>) transport.submit(sendParam, "POST");
+            Map<String, Object> respTicket = (Map<String, Object>) transport.sendPost(sendParam);
             sendParam = new HashMap<>();
             sendParam.put("ticket", respTicket.get("ticket"));
             sendParam.put("Name", id);
             sendParam.put(Dict.TRANS_NAME, WeChat.SHOW_QRCODE);
-            transport.submit(sendParam, "Get");
+            transport.sendGet(sendParam);
         }
     }
+
+
+    /**
+     * Description: 获取永久素材的列表 GET
+     *
+     * @return
+     * @throws Exception
+     * @Version1.0 2016年10月10日 下午4:37:49 by chepeiqing (chepeiqing@icloud.com)
+     */
+    @RequestMapping(value = "getBatchGetMaterial", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    Object getBatchGetMaterial() throws Exception {
+        Map<String, Object> sendParam = new HashMap<String, Object>();
+        sendParam.put(Dict.TRANS_NAME, WeChat.BATCHGET_MATERIAL);
+        sendParam.put(Dict.ACCESS_TOKEN, getAccessToken());
+        sendParam.put("offset",0);
+        sendParam.put("count",20);
+        sendParam.put("type","image");
+        Map map = (Map) transport.sendPost(sendParam);
+        return map;
+    }
+
+    /**
+     * Description: 新增永久图片素材
+     *
+     * @return
+     * @throws Exception
+     * @Version1.0 2016年10月10日 下午4:37:49 by chepeiqing (chepeiqing@icloud.com)
+     */
+    @RequestMapping(value = "addMaterial", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    Object addMaterial(HttpServletRequest request) throws Exception {
+        Map<String, Object> sendParam = new HashMap<String, Object>();
+        sendParam.put(Dict.TRANS_NAME, WeChat.ADD_MATERIAL);
+        sendParam.put(Dict.ACCESS_TOKEN, getAccessToken());
+        sendParam.put(Dict.FILEOBJ, "/Users/chepeiqing/Desktop/images/8201610091456000.jpg");
+        String type = "image";
+        Map respMap = (Map) transport.addMaterial(sendParam, type);
+        logger.debug(respMap.toString());
+        return respMap;
+    }
+
+    /**
+     * Description: 删除永久图片素材
+     *
+     * @return
+     * @throws Exception
+     * @Version1.0 2016年10月10日 下午4:37:49 by chepeiqing (chepeiqing@icloud.com)
+     */
+    @RequestMapping(value = "delMaterial", method = RequestMethod.POST)
+    @ResponseBody
+    public Object delMaterial(HttpServletRequest request) throws Exception {
+        Map<String, Object> sendParam = new HashMap<String, Object>();
+        sendParam.put(Dict.TRANS_NAME, WeChat.DEL_MATERIAL);
+        sendParam.put(Dict.ACCESS_TOKEN, getAccessToken());
+        sendParam.put("media_id",request.getParameter("mediaId"));
+        Map respMap = (Map) transport.sendPost(sendParam);
+        logger.debug(respMap.toString());
+        return respMap;
+    }
+
 }
+

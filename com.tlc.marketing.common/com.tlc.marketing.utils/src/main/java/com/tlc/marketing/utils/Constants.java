@@ -28,4 +28,8 @@ public class Constants {
      * 二维码生成路径
      **/
     public static String PATH_QRCODE_IMAGE = "/Users/chepeiqing/Desktop/images";
+    /**
+     * 图片上传分隔符
+     */
+    public static String BOUNDARY = "----------1235789009878";
 }

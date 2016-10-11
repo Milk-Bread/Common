@@ -36,4 +36,12 @@ public class Dict {
      * 事件类型
      */
     public static String EVENT = "Event";
+    /**
+     * 消息发送类型
+     */
+    public static String SENDTYPE = "SendTpye";
+    /**
+     * 图片上传-图片地址map
+     */
+    public static String FILEOBJ = "fileObj";
 }

@@ -66,7 +66,7 @@ public class WeChatServiceImpl implements WeChatService {
             String event = (String) param.get(Dict.EVENT);
             if(Event.subscribe.toString().equals(event)){//事件类型为未关注扫码
                 logger.debug("事件类型为未关注扫码");
-
+                msgTypeBySubscribe(msgMap,param);
             }else if(Event.unsubscribe.toString().equals(event)){
                 logger.debug("事件类型为取消关注");
 
@@ -93,16 +93,16 @@ public class WeChatServiceImpl implements WeChatService {
             logger.debug("消息类型为连接消息");
 
         } else if (msgType.equals(MsgType.shortvideo.toString())) {//微信消息为小视频消息消息
-            logger.debug("消息类型为小视频消息消息");
+            logger.debug("消息类型为小视频消息");
 
         } else if (msgType.equals(MsgType.location.toString())) {//微信消息为地理位置消息
             logger.debug("消息类型为地理位置消息");
 
         } else if (msgType.equals(MsgType.video.toString())) {//微信消息为视频消息消息
-            logger.debug("消息类型为视频消息消息");
+            logger.debug("消息类型为视频消息");
 
         } else if (msgType.equals(MsgType.voice.toString())) {//微信消息为语音消息消息
-            logger.debug("消息类型为语音消息消息");
+            logger.debug("消息类型为语音消息");
 
         }
         return msgMap;
@@ -119,5 +119,14 @@ public class WeChatServiceImpl implements WeChatService {
         msgMap.put("CreateTime",param.get("CreateTime"));
         msgMap.put("MsgType","text");
         msgMap.put("Content",param.get("Content"));
+    }
+
+    /**
+     * 事件类型为未关注扫码
+     * @param msgMap
+     * @param param
+     */
+    private void msgTypeBySubscribe(Map<String, Object> msgMap,Map<String, Object> param){
+
     }
 }
