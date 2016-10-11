@@ -38,4 +38,8 @@ public class WeChat {
      * 删除永久图片素材
      */
     public  static String  DEL_MATERIAL="https://api.weixin.qq.com/cgi-bin/material/del_material";
+    /**
+     * 新增图文素材
+     */
+    public  static String ADD_NEWS="https://api.weixin.qq.com/cgi-bin/material/add_news";
 }

@@ -7,6 +7,7 @@ import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 
 import java.util.*;
+import java.util.regex.Pattern;
 
 /**
  * Created by chepeiqing on 16/10/9.
@@ -15,6 +16,7 @@ public class MapEntryConverter implements Converter {
     public boolean canConvert(Class clazz) {
         return AbstractMap.class.isAssignableFrom(clazz);
     }
+
 
     public void marshal(Object value, HierarchicalStreamWriter writer, MarshallingContext context) {
         AbstractMap map = (AbstractMap) value;
@@ -39,7 +41,15 @@ public class MapEntryConverter implements Converter {
                     writer.endNode();
                 } else {
                     writer.startNode(key);
+                    Pattern patternInt = Pattern.compile("[0-9]*(\\.?)[0-9]*");
+                    Pattern patternFloat = Pattern.compile("[0-9]+");
+//                    if(!patternInt.matcher(keyValue.toString()).matches() || !patternFloat.matcher(keyValue.toString()).matches()) {
+//                        writer.setValue("<<![CDATA[");
+//                    }
                     writer.setValue(keyValue.toString());
+//                    if(!patternInt.matcher(keyValue.toString()).matches() || !patternFloat.matcher(keyValue.toString()).matches()) {
+//                        writer.setValue("]]>>");
+//                    }
                     writer.endNode();
                 }
             }
