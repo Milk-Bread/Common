@@ -7,4 +7,9 @@
         select userSeq,userId,userName,password,sex,age,addr,mobilePhone,phone,idType,idNo,roleSeq,channelId,createTime from tlcuser
         WHERE userId = #{userId} and password = #{password}
     </select>
+    <!-- 角色查询 -->
+    <select id="roleQuery" parameterType="java.lang.String" resultType="java.util.HashMap">
+        select roleSeq,roleName,createTime from role
+
+    </select>
 </mapper>

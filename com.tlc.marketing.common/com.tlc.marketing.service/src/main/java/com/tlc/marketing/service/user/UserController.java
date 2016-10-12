@@ -97,4 +97,17 @@ public class UserController {
         }
         return menuList;
     }
+
+    /**
+     * Description: 根据用户角色加载菜单
+     * @Version1.0 2016年8月1日 下午3:49:50 by chepeiqing (chepeiqing@icloud.com)
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "roleQuery.do", method = RequestMethod.POST)
+    @ResponseBody
+    public Object roleQuery(HttpServletRequest request) {
+        String roleName = (String)request.getParameter("roleName");
+        return userService.roleQuery(roleName);
+    }
 }
