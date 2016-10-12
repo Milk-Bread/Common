@@ -240,19 +240,7 @@ public class WeixinController {
         return respMap;
     }
 
-    /**
-     * Description: 查询带参数微信二维码
-     *
-     * @return
-     * @throws Exception
-     * @Version1.0 2016年10月10日 下午4:37:49 by pengyuming (pengym_27@163.com)
-     */
-    @RequestMapping(value = "getQrcodeImg", method = RequestMethod.POST)
-    @ResponseBody
-    public Object getQrcodeImage(HttpServletRequest request) throws Exception {
-        System.out.print("---getQrcodeImg------");
-        return weChatService.qQrcodeimg();
-    }
+
 
 }
 
