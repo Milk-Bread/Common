@@ -3,9 +3,8 @@
  */
 define(['app', 'service'], function (app) {
     app.controller('userMngCtrl', function (service,$scope,$location,$state,$stateParams) {
-        $scope.userName = '二维码管理';
-        $scope.doIt = function(){
-            $state.go("Main.QrCodeManager");
-        };
+        service.post2SRV("getQrcodeImg", null,function(data,status) {
+            console.log(data);
+        },1000);
     });
 });

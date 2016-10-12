@@ -250,7 +250,8 @@ public class WeixinController {
     @RequestMapping(value = "getQrcodeImg", method = RequestMethod.POST)
     @ResponseBody
     public Object getQrcodeImage(HttpServletRequest request) throws Exception {
-        return null;
+        System.out.print("---getQrcodeImg------");
+        return weChatService.qQrcodeimg();
     }
 
 }
