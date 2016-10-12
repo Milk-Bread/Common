@@ -13,15 +13,15 @@
 	<section class="menu">
 		<article class="accordion">
 			<details class="link"  ng-repeat="menu in menuList">
-			   <summary>{{menu.menuOne}}</summary> 
+			   <summary ng-click="menuOne(menu.menuOne);">{{menu.menuOne}}</summary>
 			   <ul class="submenu" ng-repeat="var in menu.menuTwo">
-					<li><a ui-sref=".{{var.url}}">{{var.name}}</a></li>
+					<li><a ui-sref=".{{var.url}}" ng-click="menuTwo(var.name);">{{var.name}}</a></li>
 				</ul>
 			</details>
 		</article>
 	</section>
 	<aside class="aside">
-		<nav>您当前位置： 系统管理=>用户管理</nav>
+		<nav ng-show="menuOne1 != null">您当前位置： {{menuOne1}}<span ng-show="menuTwo1 != null">=></span>{{menuTwo1}}</span></nav>
 		<!-- 主要内容 -->
 		<div ui-view></div>
 	</aside>
