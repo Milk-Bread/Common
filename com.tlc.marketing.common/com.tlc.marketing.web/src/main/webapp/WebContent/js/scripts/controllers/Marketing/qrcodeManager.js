@@ -3,9 +3,9 @@
  */
 define(['app', 'service'], function (app) {
     app.controller('qrCodeManager', function (service,$scope,$location,$state,$stateParams) {
-        alert("sss");
         service.post2SRV("getQrcodeImg.do", null,function(data,status) {
             console.log(data);
+            $scope.qrcodeimgList = data;
         },1000);
     });
 });
