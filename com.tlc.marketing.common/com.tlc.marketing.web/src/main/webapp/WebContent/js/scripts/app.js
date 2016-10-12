@@ -1,5 +1,5 @@
-define([ 'routes', 'loader', 'angularAMD', 'ui-bootstrap','angular-sanitize', 'blockUI', 'ui.route' ], function(config, loader,angularAMD) {
-	var app = angular.module("webapp", [  'ngSanitize','ui.bootstrap', 'ui.router']);
+define([ 'routes', 'loader', 'angularAMD', 'ui-bootstrap','angular-sanitize', 'blockUI', 'ui.route' ,'loading-bar'], function(config, loader,angularAMD) {
+	var app = angular.module("webapp", [  'ngSanitize','ui.bootstrap', 'ui.router','angular-loading-bar']);
 	app.config(function($stateProvider, $urlRouterProvider) {
 		// 配置路由
 		if (config.routes != undefined) {

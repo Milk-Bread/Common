@@ -14,5 +14,13 @@ define(['app', 'service'], function (app) {
 //	                       {"menuOne":"图片管理","menuTwo":[{"name":"角色管理","url":"RoleManager"},{"name":"用户管理",'url':"UserManager"},{"name":"权限管理",'url':"UserMng"},{"name":"密码管理",'url':"UserMng"}]},
 //	                       {"menuOne":"产品管理","menuTwo":[{"name":"角色管理","url":"RoleManager"},{"name":"用户管理",'url':"UserManager"},{"name":"权限管理",'url':"UserMng"},{"name":"密码管理",'url':"UserMng"}]},
 //	                       {"menuOne":"日志管理","menuTwo":[{"name":"角色管理","url":"RoleManager"},{"name":"用户管理",'url':"UserManager"},{"name":"权限管理",'url':"UserMng"},{"name":"密码管理",'url':"UserMng"}]},];
+		$scope.menuOne = function(menu){
+			$scope.menuTwo1 = null;
+			$scope.menuOne1 = menu;
+		};
+
+		$scope.menuTwo = function(menu){
+			$scope.menuTwo1 = menu;
+		};
 	});
 });

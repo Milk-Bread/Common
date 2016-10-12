@@ -1,5 +1,5 @@
 define([ 'app'], function(app) {
-	app.service('service',function($http){
+	app.service('service',function($http,cfpLoadingBar){
 		this.post2SRV = function(action, formData, callBack, timeOut){
 			if(formData == null || formData == ''){
 				formData = {};
@@ -12,17 +12,20 @@ define([ 'app'], function(app) {
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
                 transformRequest: transFn
             };
+			cfpLoadingBar.start();
 	        $http.post(
-	        	action, 
-	        	formData, 
+	        	action,
+	        	formData,
 	        	postCfg
 	        ).success(function(data,header,config,status){
-		    	if(data._exceptionCode != null && data._exceptionCode == 'false'){
+				cfpLoadingBar.complete();
+		    	if(data._exceptionCode != null || data._exceptionCode == 'false'){
 		    		showError("错误提示",""+data._exceptionMsg);
 	        	}else{
 	        		callBack(data,header,config,status);
 	        	}
 		    }).error(function(data,header,config,status){
+				cfpLoadingBar.complete();
 		    	var errorStr = "网络错误";
 	        	if(data._exceptionMsg != null && data._exceptionMsg != undefined && data._exceptionMsg != ''){
 	        		errorStr = data._exceptionMsg;
