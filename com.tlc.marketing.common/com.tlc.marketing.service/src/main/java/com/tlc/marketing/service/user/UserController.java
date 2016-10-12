@@ -108,6 +108,7 @@ public class UserController {
     @ResponseBody
     public Object roleQuery(HttpServletRequest request) {
         String roleName = (String)request.getParameter("roleName");
-        return userService.roleQuery(roleName);
+        List<Map<String, Object>> roleList = userService.roleQuery(roleName);
+        return roleList;
     }
 }

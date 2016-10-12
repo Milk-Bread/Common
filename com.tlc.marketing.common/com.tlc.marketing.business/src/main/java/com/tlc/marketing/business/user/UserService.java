@@ -2,6 +2,7 @@ package com.tlc.marketing.business.user;
 
 import com.tlc.marketing.domain.TlcUser;
 
+import java.util.List;
 import java.util.Map;
 
 public interface UserService {
@@ -12,5 +13,5 @@ public interface UserService {
    * @param roleName
    * @return
    */
-  public Map<String, Object> roleQuery(String roleName);
+  public List<Map<String, Object>> roleQuery(String roleName);
 }

@@ -2,6 +2,7 @@ package com.tlc.marketing.dao;
 
 import com.tlc.marketing.domain.TlcUser;
 
+import java.util.List;
 import java.util.Map;
 
 
@@ -21,6 +22,6 @@ public interface UserDao {
    * @param roleName
    * @return
    */
-  public Map<String, Object> roleQuery(String roleName);
+  public List<Map<String, Object>> roleQuery(String roleName);
 
 }
