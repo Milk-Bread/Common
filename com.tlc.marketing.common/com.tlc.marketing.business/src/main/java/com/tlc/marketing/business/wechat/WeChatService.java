@@ -1,6 +1,9 @@
 package com.tlc.marketing.business.wechat;
 
+import com.tlc.marketing.domain.QrcodeImg;
+
 import java.text.ParseException;
+import java.util.List;
 import java.util.Map;
 
 public interface WeChatService {
@@ -38,4 +41,10 @@ public interface WeChatService {
      * @param map
      */
     public void iQrcodeimg(Map<String, Object> map);
+
+    /**
+     *  Description:查询生成的二维码
+     * @return
+     */
+    public List<QrcodeImg> qQrcodeimg();
 }

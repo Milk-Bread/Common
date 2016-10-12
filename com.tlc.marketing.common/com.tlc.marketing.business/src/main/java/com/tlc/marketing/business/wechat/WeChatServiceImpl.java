@@ -8,6 +8,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.tlc.marketing.domain.QrcodeImg;
 import com.tlc.marketing.domain.wechat.Event;
 import com.tlc.marketing.domain.wechat.MsgType;
 import com.tlc.marketing.utils.Dict;
@@ -116,6 +117,16 @@ public class WeChatServiceImpl implements WeChatService {
     @Override
     public void iQrcodeimg(Map<String, Object> map) {
         weChatDao.iQrcodeimg(map);
+    }
+
+
+    /**
+     * Description:查询生成的二维码
+     * @return
+     */
+    @Override
+    public List<QrcodeImg> qQrcodeimg() {
+        return weChatDao.qQrcodeimg();
     }
 
     /**

@@ -1,6 +1,10 @@
 package com.tlc.marketing.dao;
 
+import com.tlc.marketing.domain.QrcodeImg;
+
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Description:微信相关表数据库操作
@@ -35,4 +39,10 @@ public interface WeChantDao {
      * @param map
      */
     public void iQrcodeimg(Map<String, Object> map);
+
+    /**
+     *  Description:查询生成的二维码
+     * @return
+     */
+    public List<QrcodeImg> qQrcodeimg();
 }

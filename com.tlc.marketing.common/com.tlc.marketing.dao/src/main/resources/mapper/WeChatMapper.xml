@@ -17,4 +17,7 @@
 		INSERT INTO qrcodeimg (actionName, appId, sceneId, ticket, url, qrcodeName, state, preservation,createTime, updateTime)
 		VALUES (#{action_name},#{appId}, #{scene_id}, #{ticket}, #{url}, #{Name}, 'I',#{preservation}, now(), now())
 	</select>
+	<select id="qQrcodeimg" resultType="com.tlc.marketing.domain.QrcodeImg">
+		SELECT actionName,appId,createTime,preservation,qrcodeName,qrcodeSeq,sceneId,state,ticket,updateTime,url FROM qrcodeimg
+	</select>
 </mapper>

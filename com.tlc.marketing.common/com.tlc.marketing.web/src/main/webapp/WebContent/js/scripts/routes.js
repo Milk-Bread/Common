@@ -23,6 +23,11 @@
                 templateUrl: 'views/SysMng/roleManager.html',
                 dependencies: ['controllers/SysMng/roleManager'],
                 allowAnonymous: true
+            },'Main.QrCodeManager': {
+                url: '/QrCodeManager',
+                templateUrl: 'views/Marketing/qrcodeManager.html',
+                dependencies: ['controllers/Marketing/qrcodeManager'],
+                allowAnonymous: true
             }
         }
     };
