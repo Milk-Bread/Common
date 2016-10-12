@@ -49,7 +49,7 @@ public class UserController {
      * @param password
      * @return
      */
-    @RequestMapping(value = "Login", method = RequestMethod.POST)
+    @RequestMapping(value = "login.do", method = RequestMethod.POST)
     @ResponseBody
     public Object login(HttpServletRequest request, String userId, String password) {
         String passwordaes = EncodeUtil.aesEncrypt(password);
@@ -71,7 +71,7 @@ public class UserController {
      * @param request
      * @return
      */
-    @RequestMapping(value = "LodeMenu", method = RequestMethod.POST)
+    @RequestMapping(value = "lodeMenu.do", method = RequestMethod.POST)
     @ResponseBody
     public Object lodeMenu(HttpServletRequest request) {
         TlcUser user = (TlcUser) request.getSession().getAttribute("_USER");

@@ -4,7 +4,7 @@ define(['app', 'service'], function (app) {
 //	    	service.skipPage('htmls/Login/views/login.html');
 //	    	return false;
 //	    }
-		service.post2SRV("LodeMenu", null,function(data,status) {
+		service.post2SRV("lodeMenu.do", null,function(data,status) {
 			console.log(data);
 			$scope.menuList = data;
     	},4000);

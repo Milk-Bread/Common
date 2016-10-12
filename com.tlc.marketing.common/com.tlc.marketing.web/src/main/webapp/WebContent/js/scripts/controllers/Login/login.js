@@ -15,7 +15,7 @@ define(['app', 'service'], function (app) {
     			"userId" : userId,
     			"password" : password
     		};
-    		service.post2SRV("Login", formData,function(data,status) {
+    		service.post2SRV("login.do", formData,function(data,status) {
     			$state.go("Main");
         	},4000);
     	};
