@@ -1,5 +1,5 @@
 define([ 'app'], function(app) {
-	app.service('service',function($http,cfpLoadingBar){
+	app.service('service',function($http,cfpLoadingBar,$state){
 		this.post2SRV = function(action, formData, callBack, timeOut){
 			if(formData == null || formData == ''){
 				formData = {};
@@ -21,6 +21,9 @@ define([ 'app'], function(app) {
 				cfpLoadingBar.complete();
 		    	if(data._exceptionCode != null || data._exceptionCode == 'false'){
 		    		showError("错误提示",""+data._exceptionMsg);
+					if(data._exceptionCode == "please.log.in.again"){
+						$state.go("Login");
+					}
 	        	}else{
 	        		callBack(data,header,config,status);
 	        	}
@@ -31,6 +34,9 @@ define([ 'app'], function(app) {
 	        		errorStr = data._exceptionMsg;
 	        	}
 	        	showError("错误提示",errorStr+action);
+				if(data._exceptionCode == "please.log.in.again"){
+					$state.go("Login");
+				}
 		    });
 		};
 		/** 统一页面跳转方法 **/

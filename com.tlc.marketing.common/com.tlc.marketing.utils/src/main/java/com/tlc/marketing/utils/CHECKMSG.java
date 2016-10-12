@@ -20,4 +20,8 @@ public class CHECKMSG {
      * 用户不存在
      **/
     public static final String USER_DOES_NOT_EXIST = "user.does.not.exist";
+    /**
+     * 请重新登录
+     */
+    public static final String PLEASE_LOG_IN_AGAIN = "please.log.in.again";
 }
