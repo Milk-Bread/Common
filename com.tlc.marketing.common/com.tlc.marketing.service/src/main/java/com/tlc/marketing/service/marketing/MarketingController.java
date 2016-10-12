@@ -5,6 +5,7 @@ package com.tlc.marketing.service.marketing;
  */
 
 import com.tlc.marketing.business.wechat.WeChatService;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
  * All Rights Reserved.
  * @version 1.0 2016年10月12日 下午22:14:05 by pengyuming
  */
+@Controller
 public class MarketingController {
 
     @Resource
