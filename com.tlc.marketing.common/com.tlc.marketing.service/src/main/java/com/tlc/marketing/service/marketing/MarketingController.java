@@ -36,7 +36,6 @@ public class MarketingController {
     @RequestMapping(value = "getQrcodeImg.do", method = RequestMethod.POST)
     @ResponseBody
     public Object getQrcodeImage(HttpServletRequest request) throws Exception {
-        System.out.print("---getQrcodeImg------");
         return weChatService.qQrcodeimg();
     }
 }
