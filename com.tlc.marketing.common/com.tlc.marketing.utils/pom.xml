@@ -6,4 +6,12 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>com.tlc.marketing.utils</artifactId>
+
+  <dependencies>
+    <dependency>
+      <groupId>marketing</groupId>
+      <artifactId>com.tlc.marketing.domain</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+  </dependencies>
 </project>
