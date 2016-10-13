@@ -16,6 +16,7 @@ define(['app', 'service'], function (app) {
     			"password" : password
     		};
     		service.post2SRV("login.do", formData,function(data,status) {
+				service.setUser(data);
     			$state.go("Main");
         	},4000);
     	};

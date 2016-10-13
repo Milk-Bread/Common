@@ -1,5 +1,11 @@
 define([ 'app'], function(app) {
 	app.service('service',function($http,cfpLoadingBar,$state){
+		this.getUser = function(){
+			return angular.fromJson(sessionStorage.getItem("_USER"));
+		};
+		this.setUser = function(user){
+			sessionStorage.setItem("_USER",angular.toJson(user));
+		};
 		this.post2SRV = function(action, formData, callBack, timeOut){
 			if(formData == null || formData == ''){
 				formData = {};

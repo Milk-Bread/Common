@@ -15,6 +15,7 @@ require.config({
 		'loading-bar':'../lib/angular-plugins/angular-loading-bar/loading-bar.min',
 		'ngload':'../lib/angular-plugins/ngload',
 		'ui-bootstrap':'../lib/angular-plugins/angular-ui-bootstrap/ui-bootstrap-tpls-0.12.1.min',
+		'bootstrap':'../lib/angular-plugins/bootstrap/bootstrap.min',
 		'angular-sanitize':'../lib/angular-plugins/angular-sanitize.min',
 		'service':'../scripts/service/common/service'
 	},
@@ -31,7 +32,8 @@ require.config({
 		'blockUI' : [ 'angular'],
 		'loading-bar':['angular'],
         'angular-sanitize' : [ 'angular' ],
-        'service':['jquery','angular']
+        'service':['jquery','angular'],
+		'bootstrap':['jquery']
 	},
 	urlArgs : "v=" + new Date().getTime(),
 	// 启动程序 js/scripts/app.js
