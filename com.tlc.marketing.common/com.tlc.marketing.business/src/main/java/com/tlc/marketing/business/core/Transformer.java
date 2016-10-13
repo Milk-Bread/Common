@@ -1,15 +1,7 @@
 package com.tlc.marketing.business.core;
 
 import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.converters.Converter;
-import com.thoughtworks.xstream.converters.MarshallingContext;
-import com.thoughtworks.xstream.converters.UnmarshallingContext;
-import com.thoughtworks.xstream.io.HierarchicalStreamReader;
-import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 import com.tlc.marketing.commom.MapEntryConverter;
-import com.tlc.marketing.domain.CheckModel;
-import com.tlc.marketing.utils.CHECKMSG;
-import com.tlc.marketing.utils.Util;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
@@ -18,11 +10,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class Transformer {
@@ -46,12 +40,12 @@ public class Transformer {
             ServletInputStream in = request.getInputStream();
             Document document = reader.read(in);
             Element root = document.getRootElement();
-            logger.debug("WeChat request message:===>\r\n"+document.asXML());
+            logger.debug("WeChat request message:===>\r\n" + document.asXML());
             // 得到根元素的所有子节点
             List<Element> elementList = root.elements();
             // 将解析结果存储在HashMap中
             // 遍历所有子节点
-            xmlToMap(map,elementList);
+            xmlToMap(map, elementList);
         } catch (DocumentException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -64,44 +58,46 @@ public class Transformer {
 
     /**
      * 递归解析xml报文
+     *
      * @param map
      * @param elementList
      */
-    private static void xmlToMap(Map<String, Object> map, List<Element> elementList){
+    private static void xmlToMap(Map<String, Object> map, List<Element> elementList) {
         for (Element e : elementList) {
             List<Element> element = e.elements();
-            if(element.size() == 0) {
+            if (element.size() == 0) {
                 map.put(e.getName(), e.getText());
                 logger.debug("WeChat request message param ===>" + e.getName() + ":" + e.getText());
-            }else{
+            } else {
                 logger.debug("WeChat request message param ===>" + e.getName());
                 List<Map<String, Object>> list = new ArrayList<>();
                 Map<String, Object> map1 = new HashMap<>();
-                for (Element e1 : element){
+                for (Element e1 : element) {
                     List<Element> element1 = e1.elements();
-                    if(element1.size() == 0){
+                    if (element1.size() == 0) {
                         logger.debug("WeChat request message param ===>" + e1.getName() + ":" + e1.getText());
-                        map1.put(e1.getName(),e1.getText());
-                    }else {
+                        map1.put(e1.getName(), e1.getText());
+                    } else {
                         Map<String, Object> map2 = new HashMap<>();
-                        xmlToMap(map2,element1);
+                        xmlToMap(map2, element1);
                         list.add(map2);
-                        map1.put(e1.getName(),list);
+                        map1.put(e1.getName(), list);
                     }
                 }
-                map.put(e.getName(),map1);
+                map.put(e.getName(), map1);
             }
         }
     }
 
     /**
      * 组装返回xml
+     *
      * @param map
      * @return
      */
     @Transactional
     public String former(Map<String, Object> map) {
-        if(map==null || map.isEmpty()){
+        if (map == null || map.isEmpty()) {
             return "";
         }
         logger.debug("WeChat response message start");
@@ -109,7 +105,7 @@ public class Transformer {
         xstream.alias("xml", Map.class);
         xstream.registerConverter(new MapEntryConverter());
         String respXml = xstream.toXML(map);
-        logger.debug("WeChat response message :==>\r\n"+respXml);
+        logger.debug("WeChat response message :==>\r\n" + respXml);
         logger.debug("WeChat response message end");
         return respXml;
     }

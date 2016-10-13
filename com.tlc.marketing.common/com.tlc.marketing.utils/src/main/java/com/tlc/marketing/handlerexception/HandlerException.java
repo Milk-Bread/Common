@@ -19,26 +19,27 @@ import com.tlc.marketing.propertyconfigurer.PropertyConfigurer;
  * Description: 统一异常处理
  * Copyright (c) TLC.
  * All Rights Reserved.
+ *
  * @version 1.0 2016年6月27日 下午4:23:14 by chepeiqing (chepeiqing@icloud.com)
  */
 public class HandlerException implements HandlerExceptionResolver {
-  private static Logger logger = LoggerFactory.getLogger(HandlerException.class);
-  @Resource
-  private PropertyConfigurer propertyConfigurer;
+    private static Logger logger = LoggerFactory.getLogger(HandlerException.class);
+    @Resource
+    private PropertyConfigurer propertyConfigurer;
 
 
-  @Override
-  public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
-    Map<String, Object> exceptionMap = new HashMap<String, Object>();
-    String msg = propertyConfigurer.getMessage(ex.getMessage());
-    if (msg == null || "".equals(msg)) {
-      exceptionMap.put("_exceptionCode", "false");
-      exceptionMap.put("_exceptionMsg", ex.getMessage());
-    } else {
-      exceptionMap.put("_exceptionCode", ex.getMessage());
-      exceptionMap.put("_exceptionMsg", msg);
+    @Override
+    public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
+        Map<String, Object> exceptionMap = new HashMap<String, Object>();
+        String msg = propertyConfigurer.getMessage(ex.getMessage());
+        if (msg == null || "".equals(msg)) {
+            exceptionMap.put("_exceptionCode", "false");
+            exceptionMap.put("_exceptionMsg", ex.getMessage());
+        } else {
+            exceptionMap.put("_exceptionCode", ex.getMessage());
+            exceptionMap.put("_exceptionMsg", msg);
+        }
+        logger.error(ex.getMessage(), ex);
+        return new ModelAndView(new MappingJacksonJsonView(), exceptionMap);
     }
-    logger.error(ex.getMessage(), ex);
-    return new ModelAndView(new MappingJacksonJsonView(), exceptionMap);
-  }
 }

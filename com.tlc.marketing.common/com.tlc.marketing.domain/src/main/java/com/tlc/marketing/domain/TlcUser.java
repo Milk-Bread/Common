@@ -38,7 +38,34 @@ public class TlcUser extends BaseCodeModel {
   private Integer roleSeq;
   /** 创建时间 **/
   private Timestamp creteTime;
+  /** 登陆标志 **/
+  public boolean logout;
+  private String sessionId;
+  private Timestamp loginTime;
 
+  public String getSessionId() {
+    return sessionId;
+  }
+
+  public void setSessionId(String sessionId) {
+    this.sessionId = sessionId;
+  }
+
+  public Timestamp getLoginTime() {
+    return loginTime;
+  }
+
+  public void setLoginTime(Timestamp loginTime) {
+    this.loginTime = loginTime;
+  }
+
+  public boolean isLogout() {
+    return logout;
+  }
+
+  public void setLogout(boolean logout) {
+    this.logout = logout;
+  }
 
   public Timestamp getCreteTime() {
     return creteTime;

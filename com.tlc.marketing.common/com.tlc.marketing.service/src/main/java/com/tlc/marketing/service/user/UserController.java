@@ -1,5 +1,6 @@
 package com.tlc.marketing.service.user;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -49,7 +51,7 @@ public class UserController {
      * @param password
      * @return
      */
-    @RequestMapping(value = "Login", method = RequestMethod.POST)
+    @RequestMapping(value = "login.do", method = RequestMethod.POST)
     @ResponseBody
     public Object login(HttpServletRequest request, String userId, String password) {
         String passwordaes = EncodeUtil.aesEncrypt(password);
@@ -59,9 +61,24 @@ public class UserController {
         }
         // 创建session
         request.getSession(true);
+        user.setLogout(false);
         // 将user对象存入session
+        user.setLoginTime(new Timestamp(System.currentTimeMillis()));
+        user.setSessionId(request.getRequestedSessionId());
         request.getSession().setAttribute("_USER", user);
         return user;
+    }
+
+    /**
+     * Description: 用户登出
+     * @Version1.0 2016年8月1日 下午3:50:11 by chepeiqing (chepeiqing@icloud.com)
+     * @return
+     */
+    @RequestMapping(value = "logout.do", method = RequestMethod.POST)
+    @ResponseBody
+    public void logout(HttpServletRequest request){
+        TlcUser user = (TlcUser) request.getSession().getAttribute("_USER");
+        user.setLogout(true);
     }
 
 
@@ -71,7 +88,7 @@ public class UserController {
      * @param request
      * @return
      */
-    @RequestMapping(value = "LodeMenu", method = RequestMethod.POST)
+    @RequestMapping(value = "lodeMenu.do", method = RequestMethod.POST)
     @ResponseBody
     public Object lodeMenu(HttpServletRequest request) {
         TlcUser user = (TlcUser) request.getSession().getAttribute("_USER");
@@ -96,5 +113,21 @@ public class UserController {
             menuList.add(menuMap);
         }
         return menuList;
+    }
+
+    /**
+     * Description: 根据用户角色加载菜单
+     * @Version1.0 2016年8月1日 下午3:49:50 by chepeiqing (chepeiqing@icloud.com)
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "roleQuery.do", method = RequestMethod.POST)
+    @ResponseBody
+    public Object roleQuery(HttpServletRequest request) {
+        String roleName = (String)request.getParameter("roleName");
+        List<Map<String, Object>> roleList = userService.roleQuery(roleName);
+        String sessionId = request.getRequestedSessionId();
+        System.err.println(sessionId);
+        return roleList;
     }
 }
