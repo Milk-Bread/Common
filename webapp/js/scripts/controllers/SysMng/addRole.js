@@ -41,7 +41,7 @@ define(['app', 'service'], function (app) {
                 $scope.roleArr.push(menuTwoChecked);
                 document.getElementById(menuTwoChecked).checked = true;
             }
-            if(flag == list.length){
+            if (flag == list.length) {
                 $scope.remote($scope.roleArr, menuTwoChecked);
                 document.getElementById(menuTwoChecked).checked = false;
             }
@@ -63,12 +63,12 @@ define(['app', 'service'], function (app) {
         }
 
         $scope.doId = function () {
-            if($scope.roleName == null || $scope.roleName == ''){
-                showError("角色名称错误","请输入角色名称");
+            if ($scope.roleName == null || $scope.roleName == '') {
+                showError("角色名称错误", "请输入角色名称");
                 return;
             }
-            if($scope.roleArr == null || $scope.roleArr.length == 0){
-                showError("权限选择错误","请选择权限");
+            if ($scope.roleArr == null || $scope.roleArr.length == 0) {
+                showError("权限选择错误", "请选择权限");
                 return;
             }
             var formData = {
@@ -77,7 +77,7 @@ define(['app', 'service'], function (app) {
             }
             console.log(formData);
             service.post2SRV("addRole.do", formData, function (data, status) {
-                $state.go("Main.addRole");
+                $state.go("Main.RoleManager");
             }, 4000);
         }
         $scope.init();
