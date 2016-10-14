@@ -14,4 +14,11 @@ public interface UserService {
    * @return
    */
   public List<Map<String, Object>> roleQuery(String roleName);
+
+  /**
+   * 新增角色
+   * @param role
+   * @return
+   */
+  public void addRole(Map<String, Object> role);
 }
