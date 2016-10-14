@@ -1,13 +1,15 @@
 <div ng-controller="roleMngCtrl">
     <div class="table-responsive">
         <table class="table table-striped table-bordered table-condensed">
-            <tr>
-                <th width="45%" class="text-right">角色名称</th>
-                <td class="text-left"><input type="text" name="roleName" ng-model="roleName"/></td>
-            </tr>
+            <thead>
+                <tr>
+                    <th width="45%" class="text-right">角色名称</th>
+                    <td class="text-left"><input type="text" placeholder="输入角色名称" name="roleName" ng-model="roleName"/></td>
+                </tr>
+            </thead>
             <tr>
                 <th class="text-right"></th>
-                <td class="text-left"><input type="button" value="查询" class="btn" ng-click="init();"></td>
+                <td class="text-left"><button type="button" class="btn btn-info" ng-click="init();">查 询</button></td>
             </tr>
         </table>
     </div>

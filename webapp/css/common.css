@@ -21,7 +21,7 @@ a:focus {
 /** 重置表格元素 **/
 table { border-collapse: collapse; border-spacing: 0; }
 /* 重置 HTML5 元素 */
-article, aside, details, figcaption, figure, footer,header, hgroup, menu, nav, section,summary, time, mark, audio, video {
+article, aside, details, figcaption, figure, footer,header, menu, nav, section,summary, time, mark, audio, video {
     display: block;
     margin: 0;
     padding: 0;

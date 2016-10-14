@@ -7,6 +7,7 @@ define([ 'routes', 'loader', 'angularAMD', 'ui-bootstrap','angular-sanitize', 'b
 				$stateProvider.state(path, {
 					templateUrl : route.templateUrl,
 					url : route.url,
+					cache:false,
 					resolve : loader(route.dependencies),
 					allowAnonymous: route.allowAnonymous
 				});
