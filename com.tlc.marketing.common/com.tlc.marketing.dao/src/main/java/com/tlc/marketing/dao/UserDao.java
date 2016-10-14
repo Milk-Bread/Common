@@ -24,4 +24,16 @@ public interface UserDao {
    */
   public List<Map<String, Object>> roleQuery(String roleName);
 
+  /**
+   * 新增角色
+   * @param map
+   * @return
+     */
+  public Integer addRole(Map<String, Object> map);
+
+  /**
+   * 新增角色菜单关联
+   * @param map
+   */
+  public void addUsermenurelate(Map<String, Object> map);
 }

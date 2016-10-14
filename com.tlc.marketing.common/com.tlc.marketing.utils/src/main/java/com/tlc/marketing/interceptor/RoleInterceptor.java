@@ -31,9 +31,6 @@ public class RoleInterceptor implements HandlerInterceptor {
                 if (user.isLogout()) {
                     request.getSession().removeAttribute("_USER");
                     throw new RuntimeException(CHECKMSG.PLEASE_LOG_IN_AGAIN);//F9C7277B6C72AAE295BB8FF31BB4566E ,F9C7277B6C72AAE295BB8FF31BB4566E
-                } else if (!user.getSessionId().equals(request.getRequestedSessionId())) {
-                    request.getSession().removeAttribute("_USER");
-                    throw new RuntimeException(CHECKMSG.PLEASE_LOG_IN_AGAIN);
                 }
             } else {
                 request.getSession().removeAttribute("_USER");

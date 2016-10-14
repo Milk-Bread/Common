@@ -14,4 +14,12 @@
             AND roleName = #{roleName}
         </if>
     </select>
+
+    <insert id="addRole" parameterType="java.util.Map" keyProperty="roleSeq" useGeneratedKeys="true" >
+        INSERT INTO role(RoleName,CreateTime) VALUES (#{roleName},now())
+    </insert>
+
+    <insert id="addUsermenurelate" parameterType="java.util.Map">
+        INSERT INTO usermenurelate VALUES (#{roleSeq},#{menuId})
+    </insert>
 </mapper>
